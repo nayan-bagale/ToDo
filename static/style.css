@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    --color: white;
+    --background-color: linear-gradient(to left, #C4E0E5, #4CA1AF);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--color);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+
+}
+
+
+footer{
+    position: fixed;
+    bottom: 0%;
+    min-width: 100%;
+    transition: all 0.3s ease;
+    background: var(--background-color);
+
+}
+
+/* header and form section input and button */
+header {
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+header,
+form {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input,
+form button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    background: white;
+    outline-color: #4CA1AF;
+    transition: all 0.3s ease;
+}
+
+form button {
+    color: #4CA1AF;
+    background: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    color: white;
+    background: #4CA1AF;
+}
+
+/* Todo list section */
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.todo-list {
+    height: 50vh;
+    min-width: 50%;
+    list-style: none;
+    overflow-y: scroll; 
+    scroll-behavior: smooth;
+    transition: all 0.3s ease;
+
+}
+
+.todo-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+/* Handle */
+.todo-list::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.53);
+    border-radius: 10px;
+}
+
+.todo {
+    margin: 0.5rem;
+    background: white;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-all;
+    transition: all 1s ease;
+}
+
+.todo li {
+    flex: 1;
+    padding-left: 10px;
+    word-break: break-all;
+    
+}
+
+/* Transition of list after delete */
+
+.fall {
+    transform: translateY(20rem) rotateZ(40deg);
+    opacity: 0;
+    transition-delay: 2ms;
+}
+
+/* done and trash button section */
+
+.todo button {
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fa-done {
+    color: white;
+    background: #6fc752;
+}
+
+.fa-done:hover {
+    color: black;
+    background: #3cff00;
+}
+
+.fa-trash {
+    color: white;
+    background: #b33838;
+}
+
+.fa-trash:hover {
+    color: black;
+    background: #ff0000;
+}
+
+#completed {
+    text-decoration-line: line-through;
+    opacity: 0.5;
+}
+
+/* Menu button */
+
+.menu-btn {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    margin-right: 2rem;
+    transition: all 0.5ms ease-in;
+}
+
+.menu-btn button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 100%;
+    outline: none;
+}
+
+
+/* Profile button */
+.profile-btn {
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    margin-left: 2rem;
+}
+
+.profile-btn button {
+    /* padding: 0.5rem; 
+    font-size: 2rem; this is for icon*/
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 100%;
+
+}
+
+.profile-btn button:hover {
+    color: black;
+    background-color: #ffffff9b;
+}
+
+.profile-btn img {
+    left: 0;
+    height: 70px;
+    width: 70px;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* color: white; */
+    border-radius: 100%;
+
+}
+
+/* profile section */
+
+.profile-container {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.profile-block {
+    margin: 5% 20%;
+    padding: 5% 5% 5%;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 20px 5px #000000b1;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.profile-block form {
+    display: grid;
+}
+
+
+/* Settings menu section */
+
+.setting-container {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    touch-action: none; 
+}
+
+.setting-block {
+    display: inline-block;
+    position: absolute;
+    padding: 5% 5% 5%;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 20px 5px #000000b1;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.background-option {
+    list-style: none;
+    display: grid;
+    gap: 10px 10px;
+    grid-template-columns: auto auto auto;
+    text-align: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.background-option div {
+    display: grid;
+    /* transition: all 0.5s ease; */
+}
+
+.activetheme {
+    opacity: 0.2;
+}
+
+.background-option img {
+    z-index: 0;
+    height: 16vh;
+}
+
+.background-option span {
+    font-size: 1.5rem;
+}
+
+/* media queries */
+@media (max-width:555px) {
+
+    header, form{
+        min-height: 18vh;
+    }
+
+    form input,
+    form button {
+        max-width: 65%;
+        padding: 0.3rem;
+    }
+
+    .todo-list {
+        min-width: 90%;
+    }
+
+    .todo-list::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .todo button {
+        padding: 0.8rem;
+    }
+
+    .setting-block {
+        font-size: 1rem;
+    }
+
+    .background-option {
+        grid-template-columns: auto auto;
+    }
+
+    .background-option span {
+        font-size: 1rem;
+    }
+
+    .background-option img {
+        height: 8vh;
+
+    }
+
+    .menu-btn {
+        margin-right: 1rem;
+    }
+
+    .menu-btn button {
+        font-size: 1.5rem;
+    }
+
+    .profile-btn {
+        margin-left: 1rem;
+    }
+
+    .profile-btn button {
+        font-size: 1.5rem;
+    }
+
+    header {
+        font-size: 1.3rem;
+    }
+    footer{
+        font-size: 0.8rem;
+    }
+
+
+}
