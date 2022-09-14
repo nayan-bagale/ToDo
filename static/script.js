@@ -19,6 +19,20 @@ $.ajax({
     }
 })
 
+$( function() {
+    $( "#sortable" ).sortable({
+        axis:'y',
+        scrollSensitivity: 100,
+        scrollSpeed: 40,
+        start: function(event, ui) {
+            ui.item.addClass('active-todo')
+        },
+        stop: function(event, ui){
+            ui.item.attr('class', 'todo')
+        } 
+    })
+  } );
+
 
 //Direct Action
 $('body').on('click', '.fa-trash', function () {

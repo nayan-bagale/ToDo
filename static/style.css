@@ -20,6 +20,8 @@ body {
 }
 
 
+
+
 footer{
     position: fixed;
     bottom: 0%;
@@ -103,14 +105,17 @@ form button:hover {
     justify-content: space-between;
     align-items: center;
     word-break: break-all;
-    transition: all 1s ease;
+    transition: all 0.3s ease-out;
+}
+
+.active-todo{
+    box-shadow: 0px 0px 20px 3px #ffffffb1;
 }
 
 .todo li {
     flex: 1;
     padding-left: 10px;
     word-break: break-all;
-    
 }
 
 /* Transition of list after delete */
