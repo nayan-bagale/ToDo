@@ -98,7 +98,7 @@ $('body').on('click', '.background-option div', function(){
 
 $('body').on('click', '#profile-btn', function(){
     if($('#profile').css('display') == 'none'){
-        $('#profile').css('display', 'block')
+        $('#profile').css('display', 'flex')
     }else{
         $('#profile').css('display', 'none')
     }

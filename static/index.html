@@ -16,12 +16,12 @@
 
 <body>
     <header>
-        <!-- <div class="profile-btn" id="profile-btn">
+        <div class="profile-btn" id="profile-btn">
             <button class="material-symbols-outlined">
                 person_filled
-                <img src="#" alt="profile">
+                <!-- <img src="#" alt="profile"> -->
             </button>
-        </div> -->
+        </div>
 
         <h1>ToDo List</h1>
         <div class="menu-btn" id="menu-btn">
@@ -29,33 +29,49 @@
         </div>
     </header>
 
-    <!-- <div class="profile-container" id="profile">
-        <div class="profile-block">
-            <form>
-                <label for="email">email</label>
-                <input type="email" name="email" id="email">
-                <label for="password">password</label>
-                <input type="password" name="password" id="password">
-                <button type="submit">login</button>
-            </form>
-        </div>
-    </div> -->
-    
-    <div class="setting-container" id="setting">
-        <div class="setting-block">
-                <h2>Color Theme</h2><br>
-                <div class="background-option">
-                    <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool Sky</span>
+    <div class="profile-container" id="profile">
+        <div class="profile-section">
+            <h2>login</h2>
+            <h2>Sign Up</h2>
+            <div class="login-block">
+                <form>
+                    <div class="login-input">
+                        <span class="material-symbols-outlined">
+                            alternate_email
+                        </span>
+                        <input type="email" name="email" id="email" placeholder="Email">
                     </div>
-                    <div id="color2"><img src="./img/color2.png" alt="Macaroon"><span>Macaroon</span></div>
-                    <div id="color3"><img src="./img/color3.png" alt="Orchid"><span>Orchid</span></div>
-                    <div id="color4"><img src="./img/color4.png" alt="Lead"><span>Lead</span></div>
-                    <div id="color5"><img src="./img/color5.png" alt="Scarlet"><span>Scarlet</span></div>
-                    <div id="color6"><img src="./img/color6.png" alt="Coal"><span>Coal</span></div>
-                </div>
+                    <div class="login-input">
+                        <span class="material-symbols-outlined">
+                            lock
+                        </span>
+                        <input type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                    <div class="login-remeber-me">
+                        <input type="checkbox" name="remember-me" id="remember-me">
+                        <label for="remember-me">Remember Me ?</label>
+                    </div>
+                    <button type="submit">login</button>
+                </form>
+            </div>
         </div>
     </div>
-    <form autocomplete="off">
+
+    <div class="setting-container" id="setting">
+        <div class="setting-block">
+            <h2>Color Theme</h2><br>
+            <div class="background-option">
+                <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool Sky</span>
+                </div>
+                <div id="color2"><img src="./img/color2.png" alt="Macaroon"><span>Macaroon</span></div>
+                <div id="color3"><img src="./img/color3.png" alt="Orchid"><span>Orchid</span></div>
+                <div id="color4"><img src="./img/color4.png" alt="Lead"><span>Lead</span></div>
+                <div id="color5"><img src="./img/color5.png" alt="Scarlet"><span>Scarlet</span></div>
+                <div id="color6"><img src="./img/color6.png" alt="Coal"><span>Coal</span></div>
+            </div>
+        </div>
+    </div>
+    <form autocomplete="off" class="form-todo-input">
         <input type="text" name="todo-input" class="todo-input">
         <button class="todo-button" type="submit">
             <span class="material-symbols-outlined">
