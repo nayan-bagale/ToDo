@@ -234,16 +234,14 @@ header,
 }
 .profile-section{
     padding: 5%;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0px 0px 20px 5px #000000b1;
+    background-color: rgba(149, 157, 165, 0.877);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     font-size: 1.5rem;
     
 }
 
 .login-block {
     padding: 5%;
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0px 0px 20px 5px #000000b1;
 }
 .login-block form{
     flex-direction: column;
@@ -292,6 +290,10 @@ header,
     align-self: center;
 }
 
+
+.forget-pass{
+    text-align: right;
+}
 
 
 
