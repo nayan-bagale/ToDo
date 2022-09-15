@@ -232,23 +232,50 @@ header,
     align-items: center;
     touch-action: none;
 }
-.profile-section{
-    padding: 5%;
+
+.profile-section {
+    min-width: 34%;
+    min-height: 48%;
     background-color: rgba(149, 157, 165, 0.877);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     font-size: 1.5rem;
-    
+
 }
 
-.login-block {
-    padding: 5%;
+/* login signUp section change button */
+.login-signup {
+    display: flex;
+    /* margin: 0% 5% 0%; */
 }
-.login-block form{
+
+.login-signup h2 {
+    flex: 1;
+    padding: 0% 5% 0%;
+}
+
+.login-signup h2:nth-of-type(1) {
+    text-align: left;
+   
+}
+
+.login-signup h2:nth-of-type(2) {
+    text-align: right;
+    background: #70706b9a;
+    box-shadow: inset 0 0 10px #000000;;
+}
+
+
+.login-block {
+    padding: 6% 12% 5%;
+    margin-top: 1rem;
+}
+
+.login-block form {
     flex-direction: column;
 }
 
 .login-input,
-.login-remeber-me{
+.login-remeber-me {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -256,12 +283,12 @@ header,
     margin-bottom: 20px;
 }
 
-.login-input input{
+.login-input input {
     width: 100%;
 }
 
 .login-input input,
-.login-input span{
+.login-input span {
     padding: 0.6rem;
     font-size: 1.5rem;
     border: none;
@@ -270,7 +297,7 @@ header,
     transition: all 0.3s ease;
 }
 
-.login-remeber-me input[type="checkbox"]{
+.login-remeber-me input[type="checkbox"] {
     height: 20px;
     width: 20px;
     margin-left: 10px;
@@ -284,14 +311,15 @@ header,
     display: flex;
 }
 
-.login-block form button{
+.login-block form button {
     height: 5vh;
     width: 50%;
     align-self: center;
 }
 
 
-.forget-pass{
+.forget-pass {
+    margin-top: 20px;
     text-align: right;
 }
 
