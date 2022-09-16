@@ -104,6 +104,30 @@ $('body').on('click', '#profile-btn', function(){
     }
 });
 
+$('body').on('click', '#login', function(){
+    $('.login-block').show()
+    $('#login').css({
+        'background-color': 'transparent',
+        'box-shadow': 'none'
+    })
+    $('#sign-up').css({ 'background-color': 'rgba(91, 98, 105, 0.877)',
+        'box-shadow': 'inset 4px -4px 10px -5px #333'})
+    $('.sign-up-block').hide();
+});
+
+$('body').on('click', '#sign-up', function () {
+    $('.sign-up-block').show();
+    $('#sign-up').css({
+        'background-color': 'transparent',
+        'box-shadow': 'none'
+    })
+    $('#login').css({
+        'background-color': 'rgba(91, 98, 105, 0.877)',
+        'box-shadow': 'inset -5px -5px 5px -5px #333'
+    })
+    $('.login-block').hide();
+});
+
 //Selectors
 const todoInput = $(".todo-input")
 const todoButton = $(".todo-button")

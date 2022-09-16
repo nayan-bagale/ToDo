@@ -32,8 +32,8 @@
     <div class="profile-container" id="profile">
         <div class="profile-section">
             <div class="login-signup">
-                <h2>login</h2>
-                <h2>Sign Up</h2>
+                <h2 id="login">login</h2>
+                <h2 id="sign-up">Sign Up</h2>
             </div>
             <div class="login-block">
                 <form>
@@ -41,20 +41,37 @@
                         <span class="material-symbols-outlined">
                             alternate_email
                         </span>
-                        <input type="email" name="email" id="email" placeholder="Email">
+                        <input type="email" name="email" id="login-email" placeholder="Email">
                     </div>
                     <div class="login-input">
                         <span class="material-symbols-outlined">
                             lock
                         </span>
-                        <input type="password" name="password" id="password" placeholder="Password">
+                        <input type="password" name="password" id="login-password" placeholder="Password">
                     </div>
                     <div class="login-remeber-me">
                         <input type="checkbox" name="remember-me" id="remember-me">
                         <label for="remember-me">Remember Me ?</label>
                     </div>
-                    <button type="submit">login</button>
+                    <button type="submit" id="login-button">login</button>
                     <label for="forget-pass" class="forget-pass">Forget Password</label>
+                </form>
+            </div>
+            <div class="sign-up-block" style="display: none">
+                <form>
+                    <div class="sign-up-input">
+                        <span class="material-symbols-outlined">
+                            alternate_email
+                        </span>
+                        <input type="email" name="email" id="sign-up-email" placeholder="Email">
+                    </div>
+                    <div class="sign-up-input">
+                        <span class="material-symbols-outlined">
+                            lock
+                        </span>
+                        <input type="password" name="password" id="sign-up-password" placeholder="Password">
+                    </div>
+                    <button type="submit">Sign up</button>
                 </form>
             </div>
         </div>

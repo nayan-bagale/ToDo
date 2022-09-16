@@ -237,7 +237,7 @@ header,
     min-width: 34%;
     min-height: 48%;
     background-color: rgba(149, 157, 165, 0.877);
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* box-shadow: 0px 0px 20px 5px #000000b1; */
     font-size: 1.5rem;
 
 }
@@ -255,27 +255,32 @@ header,
 
 .login-signup h2:nth-of-type(1) {
     text-align: left;
+    /* background-color: rgba(91, 98, 105, 0.877);
+    box-shadow: inset -5px -5px 5px -5px #333; */
    
 }
 
 .login-signup h2:nth-of-type(2) {
     text-align: right;
-    background: #70706b9a;
-    box-shadow: inset 0 0 10px #000000;;
+    background-color: rgba(91, 98, 105, 0.877);
+    box-shadow: inset 4px -4px 10px -5px #333;
 }
 
 
-.login-block {
+.login-block,
+.sign-up-block {
     padding: 6% 12% 5%;
     margin-top: 1rem;
 }
 
-.login-block form {
+.login-block form,
+.sign-up-block form {
     flex-direction: column;
 }
 
 .login-input,
-.login-remeber-me {
+.login-remeber-me,
+.sign-up-input {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -283,17 +288,21 @@ header,
     margin-bottom: 20px;
 }
 
-.login-input input {
+.login-input input,
+.sign-up-input input {
     width: 100%;
 }
 
 .login-input input,
-.login-input span {
+.login-input span,
+.sign-up-input input,
+.sign-up-input span {
     padding: 0.6rem;
     font-size: 1.5rem;
     border: none;
     /* background: white; */
-    outline-color: #4CA1AF;
+    /* outline-color: #4CA1AF; */
+    outline: none;
     transition: all 0.3s ease;
 }
 
@@ -307,11 +316,13 @@ header,
 
 }
 
-.login-block form {
+.login-block form,
+.sign-up-block form {
     display: flex;
 }
 
-.login-block form button {
+.login-block form button,
+.sign-up-block form button {
     height: 5vh;
     width: 50%;
     align-self: center;
