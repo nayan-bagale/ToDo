@@ -28,7 +28,16 @@ footer {
     min-width: 100%;
     transition: all 0.3s ease;
     background: var(--background-color);
+}
 
+footer a{
+    text-decoration: none;
+    color: white;
+    
+}
+
+footer a:hover{
+    text-shadow: 0px 0px 4px #C4E0E5;
 }
 
 /* header and form section input and button */
@@ -49,19 +58,37 @@ header,
 .form-todo-input button {
     padding: 0.5rem;
     font-size: 2rem;
+    /* color: white; */
     border: none;
+    border-bottom: 2px solid white;
+    background: transparent;
+    /* outline-color: #4CA1AF; */
+    outline: none;
+    transition: all 0.3s ease-in;
+}
+
+.form-todo-input input::placeholder{
+    color: white;
+    font-size: 1rem;
+}
+
+.form-todo-input input:focus {
     background: white;
-    outline-color: #4CA1AF;
-    transition: all 0.3s ease;
+    border: none;
+}
+
+.form-todo-input input:focus + button {
+    background: white;
+    border: none;
+    cursor: pointer;
+    color: #4CA1AF;
 }
 
 .form-todo-input button {
-    color: #4CA1AF;
-    background: white;
-    cursor: pointer;
+    color: white;
 }
 
-.form-todo-input button:hover {
+.form-todo-input input:focus + button:hover {
     color: white;
     background: #4CA1AF;
 }
@@ -251,6 +278,7 @@ header,
 .login-signup h2 {
     flex: 1;
     padding: 0% 5% 0%;
+    cursor: pointer;
 }
 
 .login-signup h2:nth-of-type(1) {
@@ -264,6 +292,7 @@ header,
     text-align: right;
     background-color: rgba(91, 98, 105, 0.877);
     box-shadow: inset 4px -4px 10px -5px #333;
+    /* border-bottom-left-radius: 20px; */
 }
 
 
