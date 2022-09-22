@@ -54,6 +54,10 @@ header,
     align-items: center;
 }
 
+.form-todo-input {
+    margin-left: 2.2rem;
+}
+
 .form-todo-input input,
 .form-todo-input button {
     padding: 0.5rem;
@@ -68,26 +72,31 @@ header,
    
 }
 
-.form-todo-input input {
+.todo-input {
     transition: all 0.3s ease-out;
 }
 
-.form-todo-input input::placeholder{
+.todo-input::placeholder{
     color: white;
     font-size: 1rem;
 }
 
-.form-todo-input input:focus {
+.todo-input:focus {
     background: white;
     border: none;
     transition: all 0.3s ease-in;
 }
 
-.form-todo-input input:focus + button {
+.form-todo-input:has(.todo-input:focus)  {
+    margin-left: 0rem;
+}
+
+.todo-input:focus + button {
     background: white;
     border: none;
     cursor: pointer;
     color: #4CA1AF;
+    /* display: block; */
     visibility: visible;
     opacity: 1;
     transition: all 0.3s ease-in;
@@ -95,12 +104,13 @@ header,
 
 .form-todo-input button {
     color: white;
+    /* display: none; */
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-out;
 }
 
-.form-todo-input input:focus + button:hover {
+.todo-input:focus + button:hover {
     color: white;
     background: #4CA1AF;
 }
@@ -470,6 +480,10 @@ header,
         padding: 0.3rem;
     }
 
+        .form-todo-input {
+            margin-left: 1.5rem;
+        }
+
     .profile-block button,
     .profile-block input {
         max-width: none;
@@ -494,7 +508,7 @@ header,
     }
 
     .background-option {
-        width: 20rem;
+        width: 18rem;
     }
 
     .background-option span {
