@@ -68,17 +68,20 @@ $('body').on('click', '#done', function () {
     localStorage.setItem("todo", JSON.stringify(todo_list))
 })
 
+//Themes Section
+
 $('body').on('click', '#menu-btn', function(){
     if($('#setting').css('display') == 'none'){
         $('#setting').css('display', 'flex')
         $('#menu-btn button').text('close')
+        $('.profile-btn').css('z-index', 1)
     }else{
         $('#setting').css('display', 'none')
         $('#menu-btn button').text('menu')
+        $('.profile-btn').css('z-index', 4)
     }
 })
 
-//Themes Section
 $('body').on('click', '.background-option div', function(){
     let colorid = $(this).attr('id')
     bgcolor.forEach((e) => {
@@ -96,11 +99,15 @@ $('body').on('click', '.background-option div', function(){
     // console.log($(this).find('img'))
 })
 
+//Profile Section
+
 $('body').on('click', '#profile-btn', function(){
     if($('#profile').css('display') == 'none'){
         $('#profile').css('display', 'flex')
+        $('.menu-btn').css('z-index', 1)
     }else{
         $('#profile').css('display', 'none')
+        $('.menu-btn').css('z-index', 4)
     }
 });
 
@@ -148,7 +155,8 @@ function addTodo(event) {
     todo_list.push(dict)
     localStorage.setItem("todo", JSON.stringify(todo_list))
     // console.log(todo_list)
-    todoInput.val('')
+    todoInput.val('').focus()
+
 }
 
 function LoadTodo() {

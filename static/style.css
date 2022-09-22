@@ -64,7 +64,12 @@ header,
     background: transparent;
     /* outline-color: #4CA1AF; */
     outline: none;
-    transition: all 0.3s ease-in;
+    
+   
+}
+
+.form-todo-input input {
+    transition: all 0.3s ease-out;
 }
 
 .form-todo-input input::placeholder{
@@ -75,6 +80,7 @@ header,
 .form-todo-input input:focus {
     background: white;
     border: none;
+    transition: all 0.3s ease-in;
 }
 
 .form-todo-input input:focus + button {
@@ -82,10 +88,16 @@ header,
     border: none;
     cursor: pointer;
     color: #4CA1AF;
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s ease-in;
 }
 
 .form-todo-input button {
     color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-out;
 }
 
 .form-todo-input input:focus + button:hover {
@@ -394,17 +406,34 @@ header,
 
 .background-option {
     list-style: none;
-    display: grid;
-    gap: 10px 10px;
-    grid-template-columns: auto auto auto;
-    text-align: center;
-    justify-content: center;
+    display: flex;
+    width: 30rem;
+    gap: 10px;
     transition: all 0.3s ease;
     cursor: pointer;
+    padding: 1rem 0;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.background-option::-webkit-scrollbar {
+    height: 5px;
+}
+
+
+/* Handle */
+.background-option::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.53);
+    border-radius: 10px;
 }
 
 .background-option div {
-    display: grid;
+   width: min-content;
+   flex-shrink: 0;
+   height: 100%;
+   scroll-snap-align: start;
     /* transition: all 0.5s ease; */
 }
 
@@ -420,6 +449,12 @@ header,
 .background-option span {
     font-size: 1.5rem;
 }
+
+/* @media (min-width:320px){
+    .background-option{
+        width: 17rem;
+    }
+} */
 
 /* media queries */
 @media (max-width:555px) {
@@ -459,7 +494,7 @@ header,
     }
 
     .background-option {
-        grid-template-columns: auto auto;
+        width: 20rem;
     }
 
     .background-option span {
@@ -467,7 +502,7 @@ header,
     }
 
     .background-option img {
-        height: 8vh;
+        height: 12vh;
 
     }
 
