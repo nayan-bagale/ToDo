@@ -117,8 +117,12 @@ $('body').on('click', '#login', function(){
         'background-color': 'transparent',
         'box-shadow': 'none'
     })
-    $('#sign-up').css({ 'background-color': 'rgba(91, 98, 105, 0.877)',
-        'box-shadow': 'inset 4px -4px 10px -5px #333'})
+    $('#sign-up').css({ 
+        // 'background-color': 'rgba(91, 98, 105, 0.877)',
+        'background-color': '#36454F',
+        'box-shadow': 'inset 4px -4px 10px -5px #333',
+        'border-radius': '0px 10px 0px 10px'
+    })
     $('.sign-up-block').hide();
 });
 
@@ -129,8 +133,10 @@ $('body').on('click', '#sign-up', function () {
         'box-shadow': 'none'
     })
     $('#login').css({
-        'background-color': 'rgba(91, 98, 105, 0.877)',
-        'box-shadow': 'inset -5px -5px 5px -5px #333'
+        // 'background-color': 'rgba(91, 98, 105, 0.877)',
+        'background-color': '#36454F',
+        'box-shadow': 'inset -5px -5px 5px -5px #333',
+        'border-radius': '10px 0px 10px 0px'
     })
     $('.login-block').hide();
 });
@@ -203,4 +209,17 @@ function templete(input, id) {
             </div>`
 }
 
+$('#profile').mouseup(function(e){
+    var container = $('.profile-section')
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $('#profile-btn').click()
+    }
+})
+
+$('#setting').mouseup(function(e){
+    var container = $('.setting-block')
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $('#menu-btn').click()
+    }
+})
 

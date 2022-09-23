@@ -16,7 +16,7 @@ body {
     color: var(--color);
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -54,9 +54,6 @@ header,
     align-items: center;
 }
 
-.form-todo-input {
-    margin-left: 2.2rem;
-}
 
 .form-todo-input input,
 .form-todo-input button {
@@ -97,16 +94,16 @@ header,
     cursor: pointer;
     color: #4CA1AF;
     /* display: block; */
-    visibility: visible;
-    opacity: 1;
+    /* visibility: visible; */
+    /* opacity: 1; */
     transition: all 0.3s ease-in;
 }
 
 .form-todo-input button {
     color: white;
     /* display: none; */
-    visibility: hidden;
-    opacity: 0;
+    /* visibility: hidden; */
+    /* opacity: 0; */
     transition: all 0.3s ease-out;
 }
 
@@ -285,9 +282,11 @@ header,
 .profile-section {
     min-width: 34%;
     min-height: 48%;
-    background-color: rgba(149, 157, 165, 0.877);
+    /* background-color: rgba(149, 157, 165, 0.877); */
     /* box-shadow: 0px 0px 20px 5px #000000b1; */
+    background-color: rgb(0 0 0 / 80%);
     font-size: 1.5rem;
+    border-radius: 10px;
 
 }
 
@@ -312,9 +311,11 @@ header,
 
 .login-signup h2:nth-of-type(2) {
     text-align: right;
-    background-color: rgba(91, 98, 105, 0.877);
+    background-color: #36454F;
+    /* background-color: rgba(91, 98, 105, 0.877); */
     box-shadow: inset 4px -4px 10px -5px #333;
     /* border-bottom-left-radius: 20px; */
+    border-radius:  0px 10px 0px 10px;
 }
 
 
@@ -322,6 +323,7 @@ header,
 .sign-up-block {
     padding: 6% 12% 5%;
     margin-top: 1rem;
+    height: 50vh;
 }
 
 .login-block form,
@@ -412,6 +414,7 @@ header,
     box-shadow: 0px 0px 20px 5px #000000b1;
     font-size: 1.5rem;
     text-align: center;
+    border-radius: 10px;
 }
 
 .background-option {
@@ -454,6 +457,7 @@ header,
 .background-option img {
     z-index: 0;
     height: 16vh;
+    border-radius: 10px;
 }
 
 .background-option span {
@@ -479,10 +483,6 @@ header,
         max-width: 65%;
         padding: 0.3rem;
     }
-
-        .form-todo-input {
-            margin-left: 1.5rem;
-        }
 
     .profile-block button,
     .profile-block input {
@@ -535,6 +535,17 @@ header,
     .profile-btn button {
         font-size: 1.5rem;
     }
+
+    .profile-section{
+        font-size: 1.2rem;
+    }
+
+        .login-input input,
+        .login-input span,
+        .sign-up-input input,
+        .sign-up-input span{
+            font-size: 1.2rem;
+        }
 
     header {
         font-size: 1.3rem;
