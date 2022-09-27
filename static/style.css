@@ -20,7 +20,80 @@ body {
 }
 
 
+/*  */
 
+
+.lds-ellipsis {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -40px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(24px, 0);
+    }
+}
+
+
+/*  */
 
 footer {
     position: fixed;
@@ -30,13 +103,13 @@ footer {
     background: var(--background-color);
 }
 
-footer a{
+footer a {
     text-decoration: none;
     color: white;
-    
+
 }
 
-footer a:hover{
+footer a:hover {
     text-shadow: 0px 0px 4px #C4E0E5;
 }
 
@@ -65,15 +138,15 @@ header,
     background: transparent;
     /* outline-color: #4CA1AF; */
     outline: none;
-    
-   
+
+
 }
 
 .todo-input {
     transition: all 0.3s ease-out;
 }
 
-.todo-input::placeholder{
+.todo-input::placeholder {
     color: white;
     font-size: 1rem;
 }
@@ -84,11 +157,11 @@ header,
     transition: all 0.3s ease-in;
 }
 
-.form-todo-input:has(.todo-input:focus)  {
+.form-todo-input:has(.todo-input:focus) {
     margin-left: 0rem;
 }
 
-.todo-input:focus + button {
+.todo-input:focus+button {
     background: white;
     border: none;
     cursor: pointer;
@@ -107,7 +180,7 @@ header,
     transition: all 0.3s ease-out;
 }
 
-.todo-input:focus + button:hover {
+.todo-input:focus+button:hover {
     color: white;
     background: #4CA1AF;
 }
@@ -284,7 +357,7 @@ header,
     min-height: 48%;
     /* background-color: rgba(149, 157, 165, 0.877); */
     /* box-shadow: 0px 0px 20px 5px #000000b1; */
-    background-color: rgb(0 0 0 / 80%);
+    background-color: rgb(0 0 0 / 95%);
     font-size: 1.5rem;
     border-radius: 10px;
 
@@ -306,7 +379,7 @@ header,
     text-align: left;
     /* background-color: rgba(91, 98, 105, 0.877);
     box-shadow: inset -5px -5px 5px -5px #333; */
-   
+
 }
 
 .login-signup h2:nth-of-type(2) {
@@ -315,7 +388,7 @@ header,
     /* background-color: rgba(91, 98, 105, 0.877); */
     box-shadow: inset 4px -4px 10px -5px #333;
     /* border-bottom-left-radius: 20px; */
-    border-radius:  0px 10px 0px 10px;
+    border-radius: 0px 10px 0px 10px;
 }
 
 
@@ -328,7 +401,10 @@ header,
 
 .login-block form,
 .sign-up-block form {
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-input,
@@ -339,6 +415,10 @@ header,
     flex-direction: row;
     /* border: #3cff00 solid 2px; */
     margin-bottom: 20px;
+}
+
+.login-remeber-me{
+    align-self: flex-start;
 }
 
 .login-input input,
@@ -366,13 +446,9 @@ header,
     margin-right: 10px;
     background-color: #eee;
 
-
 }
 
-.login-block form,
-.sign-up-block form {
-    display: flex;
-}
+
 
 .login-block form button,
 .sign-up-block form button {
@@ -385,6 +461,7 @@ header,
 .forget-pass {
     margin-top: 20px;
     text-align: right;
+    align-self: flex-end;
 }
 
 
@@ -410,8 +487,8 @@ header,
     display: inline-block;
     position: absolute;
     padding: 5% 5% 5%;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0px 0px 20px 5px #000000b1;
+    background-color:rgb(0 0 0 / 95%);
+    /* box-shadow: 0px 0px 20px 5px #000000b1; */
     font-size: 1.5rem;
     text-align: center;
     border-radius: 10px;
@@ -443,10 +520,10 @@ header,
 }
 
 .background-option div {
-   width: min-content;
-   flex-shrink: 0;
-   height: 100%;
-   scroll-snap-align: start;
+    width: min-content;
+    flex-shrink: 0;
+    height: 100%;
+    scroll-snap-align: start;
     /* transition: all 0.5s ease; */
 }
 
@@ -536,15 +613,26 @@ header,
         font-size: 1.5rem;
     }
 
-    .profile-section{
-        font-size: 1.2rem;
+    .profile-section {
+        font-size: 1rem;
+        min-width: 80%;
     }
 
-        .login-input input,
-        .login-input span,
-        .sign-up-input input,
-        .sign-up-input span{
-            font-size: 1.2rem;
+    .login-input input,
+    .login-input span,
+    .sign-up-input input,
+    .sign-up-input span {
+        font-size: 1rem;
+        padding: 0.4rem;
+    }
+
+    .login-block,
+    .sign-up-block {
+        height: 0;
+    }
+
+        .login-remeber-me input[type="checkbox"] {
+            height: 0.8rem;
         }
 
     header {

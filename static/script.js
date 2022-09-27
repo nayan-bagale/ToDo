@@ -223,3 +223,30 @@ $('#setting').mouseup(function(e){
     }
 })
 
+const delay = (delayInms) => {
+    return new Promise(resolve => setTimeout(resolve, delayInms));
+}
+
+$('#login-button').click( async function(event){
+    event.preventDefault(); //Prevent form from submitting
+    $('.lds-ellipsis').css('display','inline-flex');
+    $('.login-signup').css('visibility','hidden');
+    $('.login-block').css('visibility', 'hidden');
+    await delay(4000)
+    $('.login-signup').css('visibility', 'visible');
+    $('.login-block').css('visibility', 'visible');
+    $('.lds-ellipsis').css('display', 'none');
+});
+
+$('#sign-up-button').click(async function (event) {
+    event.preventDefault(); //Prevent form from submitting
+    $('.lds-ellipsis').css('display', 'inline-flex');
+    $('.login-signup').css('visibility', 'hidden');
+    $('.sign-up-block').css('visibility', 'hidden');
+    await delay(4000)
+    $('.login-signup').css('visibility', 'visible');
+    $('.sign-up-block').css('visibility', 'visible');
+    $('.lds-ellipsis').css('display', 'none');
+});
+
+
