@@ -558,12 +558,17 @@ header,
 .activetheme {
     opacity: 0.2;
 }
+/* .activetheme::after{
+    content: "Selected";
+    position: absolute;
+} */
 
 .background-option img {
     z-index: 0;
     height: 16vh;
     border-radius: 10px;
 }
+
 
 .background-option span {
     font-size: 1.5rem;

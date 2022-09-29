@@ -226,20 +226,25 @@ $('#setting').mouseup(function(e){
 
 $('#login-button').click( async function(event){
     event.preventDefault(); //Prevent form from submitting
-    $('.lds-ellipsis').css('display','inline-flex');
-    $('.login-signup').css('visibility','hidden');
-    $('.login-block').css('visibility', 'hidden');
-    await delay(4000)
-    $('.login-signup').css('visibility', 'visible');
-    $('.login-block').css('visibility', 'visible');
-    $('.lds-ellipsis').css('display', 'none');
+    animation(true)
+    var login = $('.login-block')
+    let name = login.find('#login-email').val()
+    let pass = login.find('#login-password').val()
+    let box =  login.find('#remember-me').is(':checked')
+    await $.post('/sign-up', { name: name, password: pass, remeber_me: box }, function (data, status) {
+        alert(status)
+    }, 'html')
+
+    animation(false)
+
 });
 
 $('#sign-up-button').click(async function (event) {
     event.preventDefault(); //Prevent form from submitting
     animation(true)
-    let name = $('.sign-up-block').find('#sign-up-email').val()
-    let pass = $('.sign-up-block').find('#sign-up-password').val()
+    var sign_up = $('.sign-up-block')
+    let name = sign_up.find('#sign-up-email').val()
+    let pass = sign_up.find('#sign-up-password').val()
     await $.post('/sign-up', { name: name, password: pass },function(data, status){
         alert(status)
     },'html')
@@ -252,9 +257,11 @@ function animation(bool){
         $('.lds-ellipsis').css('display', 'inline-flex');
         $('.login-signup').css('visibility', 'hidden');
         $('.sign-up-block').css('visibility', 'hidden');
+        $('.login-block').css('visibility', 'hidden');
     }else{
         $('.login-signup').css('visibility', 'visible');
         $('.sign-up-block').css('visibility', 'visible');
+        $('.login-block').css('visibility', 'visible');
         $('.lds-ellipsis').css('display', 'none');
     }
 }

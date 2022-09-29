@@ -44,6 +44,13 @@ app.get('/theme', (req, res) => {
 const delay = (delayInms) => {
     return new Promise(resolve => setTimeout(resolve, delayInms));
 }
+
+app.post('/login', async (req, res) => {
+    console.log(req.body)
+    await delay(2000)
+    res.send('success')
+})
+
 app.post('/sign-up', async (req, res) =>{
     console.log(req.body)
     await delay(2000)
