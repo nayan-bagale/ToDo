@@ -355,18 +355,15 @@ header,
 .profile-section {
     min-width: 34%;
     min-height: 48%;
-    /* background-color: rgba(149, 157, 165, 0.877); */
-    /* box-shadow: 0px 0px 20px 5px #000000b1; */
     background-color: rgb(0 0 0 / 95%);
     font-size: 1.5rem;
     border-radius: 10px;
-
+    overflow-y: auto;
 }
 
 /* login signUp section change button */
 .login-signup {
     display: flex;
-    /* margin: 0% 5% 0%; */
 }
 
 .login-signup h2 {
@@ -418,7 +415,8 @@ header,
 }
 
 .login-remeber-me{
-    align-self: flex-start;
+    /* align-self: flex-start; */
+    font-size: 0.8em;
 }
 
 .login-input input,
@@ -430,18 +428,31 @@ header,
 .login-input span,
 .sign-up-input input,
 .sign-up-input span {
-    padding: 0.6rem;
+    padding: 0.5rem;
     font-size: 1.5rem;
     border: none;
-    /* background: white; */
-    /* outline-color: #4CA1AF; */
     outline: none;
     transition: all 0.3s ease;
 }
 
+.login-input input,
+.sign-up-input input{
+    background: transparent;
+    border-bottom: 2px solid white;
+    color: white;
+}
+
+.login-input input::placeholder,
+.sign-up-input input::placeholder{
+    color: white;
+    font-size: 0.8em;
+
+}
+
+
 .login-remeber-me input[type="checkbox"] {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     margin-left: 10px;
     margin-right: 10px;
     background-color: #eee;
@@ -452,16 +463,33 @@ header,
 
 .login-block form button,
 .sign-up-block form button {
-    height: 5vh;
-    width: 50%;
+    height: 5.5vh;
+    width: 70%;
     align-self: center;
+    border: 1px solid white;
+    background: transparent;
+    /* border-radius: 5px; */
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
 }
 
+.login-block form button:hover,
+.sign-up-block form button:hover{
+    background: white;
+    color: black;
+}
+
+.sign-up-block form button{
+    margin: 20px 0px;
+}
 
 .forget-pass {
     margin-top: 20px;
     text-align: right;
     align-self: flex-end;
+    cursor: pointer;
+    font-size: 0.9em;
 }
 
 

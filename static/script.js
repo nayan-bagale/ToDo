@@ -223,9 +223,6 @@ $('#setting').mouseup(function(e){
     }
 })
 
-const delay = (delayInms) => {
-    return new Promise(resolve => setTimeout(resolve, delayInms));
-}
 
 $('#login-button').click( async function(event){
     event.preventDefault(); //Prevent form from submitting
@@ -240,13 +237,25 @@ $('#login-button').click( async function(event){
 
 $('#sign-up-button').click(async function (event) {
     event.preventDefault(); //Prevent form from submitting
-    $('.lds-ellipsis').css('display', 'inline-flex');
-    $('.login-signup').css('visibility', 'hidden');
-    $('.sign-up-block').css('visibility', 'hidden');
-    await delay(4000)
-    $('.login-signup').css('visibility', 'visible');
-    $('.sign-up-block').css('visibility', 'visible');
-    $('.lds-ellipsis').css('display', 'none');
+    animation(true)
+    let name = $('.sign-up-block').find('#sign-up-email').val()
+    let pass = $('.sign-up-block').find('#sign-up-password').val()
+    await $.post('/sign-up', { name: name, password: pass },function(data, status){
+        alert(status)
+    },'html')
+
+   animation(false)
 });
 
+function animation(bool){
+    if(bool){
+        $('.lds-ellipsis').css('display', 'inline-flex');
+        $('.login-signup').css('visibility', 'hidden');
+        $('.sign-up-block').css('visibility', 'hidden');
+    }else{
+        $('.login-signup').css('visibility', 'visible');
+        $('.sign-up-block').css('visibility', 'visible');
+        $('.lds-ellipsis').css('display', 'none');
+    }
+}
 

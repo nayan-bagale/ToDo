@@ -40,6 +40,16 @@ app.get('/theme', (req, res) => {
     res.json(bgcolor)
 })
 
+
+const delay = (delayInms) => {
+    return new Promise(resolve => setTimeout(resolve, delayInms));
+}
+app.post('/sign-up', async (req, res) =>{
+    console.log(req.body)
+    await delay(2000)
+    res.send('success')
+})
+
 app.listen(process.env.PORT || 3000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
