@@ -442,6 +442,21 @@ header,
     color: white;
 }
 
+.login-input input:valid,
+.sign-up-input input:valid{   
+    border-bottom: 2px solid white;
+}
+
+.login-input input:invalid,
+.sign-up-input input:invalid{
+    border-bottom: 2px solid red;
+}
+
+/* .login-input input:focus:invalid,
+.sign-up-input input:focus:invalid{
+    border-bottom: 2px solid red;
+} */
+
 .login-input input::placeholder,
 .sign-up-input input::placeholder{
     color: white;
@@ -574,11 +589,6 @@ header,
     font-size: 1.5rem;
 }
 
-/* @media (min-width:320px){
-    .background-option{
-        width: 17rem;
-    }
-} */
 
 /* media queries */
 @media (max-width:555px) {
