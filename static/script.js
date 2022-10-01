@@ -34,6 +34,7 @@ $( function() {
   } );
 
 
+
 //Direct Action
 $('body').on('click', '.fa-trash', function () {
     let tempvalue = $(this).prev().prev().text()

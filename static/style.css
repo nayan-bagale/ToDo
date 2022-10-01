@@ -3,6 +3,15 @@
 :root {
     --color: white;
     --background-color: linear-gradient(to left, #C4E0E5, #4CA1AF);
+    --gradient: linear-gradient(
+        45deg,
+        #845ec2,
+        #d65db1,
+        #ff6f91,
+        #ff9671,
+        #ffc75f,
+        #f9f871
+    );
 }
 
 * {
@@ -19,6 +28,35 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+/*  */
+
+.loader-container{
+    display: grid;
+    place-items: center;
+    position: fixed;
+    background: #ffffff;
+    height: 100vh;
+    width: 100%;
+    z-index: 5;
+}
+
+.loader-text{
+    font-size: 8rem;
+    font-weight: 900;
+
+    background-image: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    animation: loaderanimation 2s infinite alternate;
+}
+
+@keyframes loaderanimation{
+0%{
+    background-position: left;
+}
+100%{ background-position: right;}
+}
 
 /*  */
 
@@ -592,6 +630,10 @@ header,
 
 /* media queries */
 @media (max-width:555px) {
+
+    .loader-text{
+        font-size: 4rem;
+    }
 
     header,
     .form-todo-input {

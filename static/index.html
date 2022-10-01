@@ -6,15 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google" content="notranslate" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="style.css">
     <title>ToDo List</title>
 </head>
 
 <body>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <div id="loading" class="loader-container">
+        <div class="loader-text">Loading</div>
+    </div>
+
+    <script>
+        $(window).on('load', function () {
+                $('#loading').remove()
+            })
+    </script>
+
     <header>
         <div class="profile-btn" id="profile-btn">
             <button class="material-symbols-outlined">
@@ -42,7 +54,6 @@
                 <h2 id="sign-up">Sign Up</h2>
             </div>
             <div class="login-block">
-                
                 <form>
                     <div class="login-input">
                         <span class="material-symbols-outlined">
@@ -122,14 +133,12 @@
     <footer>
         <h2>Developed by <a href="https://github.com/nayan-bagale" target="_blank">&#60; Nayan /&#62;</a></h2>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
+    
+        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"
-        integrity="sha512-YYiD5ZhmJ0GCdJvx6Xe6HzHqHvMpJEPomXwPbsgcpMFPW+mQEeVBU6l9n+2Y+naq+CLbujk91vHyN18q6/RSYw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-YYiD5ZhmJ0GCdJvx6Xe6HzHqHvMpJEPomXwPbsgcpMFPW+mQEeVBU6l9n+2Y+naq+CLbujk91vHyN18q6/RSYw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-
     <script src="script.js"></script>
 </body>
 
