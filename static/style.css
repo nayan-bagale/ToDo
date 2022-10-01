@@ -26,6 +26,7 @@ body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
 }
 
 /*  */
@@ -38,6 +39,7 @@ body {
     height: 100vh;
     width: 100%;
     z-index: 5;
+    
 }
 
 .loader-text{
@@ -633,6 +635,7 @@ header,
 
     .loader-text{
         font-size: 4rem;
+        margin-top: -100px;
     }
 
     header,

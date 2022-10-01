@@ -33,7 +33,13 @@ $( function() {
     })
   } );
 
-
+$(window).on('load', function () {
+    function loader_remove() {
+    $('#loading').remove()
+    $('body').css('overflow','auto')
+}
+    window.setTimeout(loader_remove, 2000)
+})
 
 //Direct Action
 $('body').on('click', '.fa-trash', function () {
