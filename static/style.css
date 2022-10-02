@@ -4,7 +4,7 @@
     --color: white;
     --background-color: linear-gradient(to left, #C4E0E5, #4CA1AF);
     --gradient: linear-gradient(
-        45deg,
+        225deg,
         #845ec2,
         #d65db1,
         #ff6f91,
@@ -32,8 +32,6 @@ body {
 /*  */
 
 .loader-container{
-    display: grid;
-    place-items: center;
     position: fixed;
     background: #ffffff;
     height: 100vh;
@@ -42,22 +40,39 @@ body {
     
 }
 
+@keyframes slider{
+    0%{
+        bottom: 0%;
+    }
+
+    100%{
+        bottom: 100%;    
+    }
+
+}
+
 .loader-text{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     font-size: 8rem;
     font-weight: 900;
+    text-align: center;
 
     background-image: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 400%;
-    animation: loaderanimation 2s infinite alternate;
+    animation: loaderanimation 0.6s infinite alternate;
 }
 
 @keyframes loaderanimation{
 0%{
     background-position: left;
 }
-100%{ background-position: right;}
+100%{ 
+    background-position: right;}
 }
 
 /*  */
@@ -635,7 +650,7 @@ header,
 
     .loader-text{
         font-size: 4rem;
-        margin-top: -100px;
+        margin-top: -50px;
     }
 
     header,

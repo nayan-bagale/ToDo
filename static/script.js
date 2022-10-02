@@ -35,9 +35,12 @@ $( function() {
 
 $(window).on('load', function () {
     function loader_remove() {
-    $('#loading').remove()
+        $('.loader-container').css('animation','slider 0.8s linear')
+        $('#loading').on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(){
+            $(this).remove()
+        })
     $('body').css('overflow','auto')
-}
+    }
     window.setTimeout(loader_remove, 2000)
 })
 
