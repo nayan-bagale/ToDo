@@ -46,9 +46,15 @@ const delay = (delayInms) => {
 }
 
 app.post('/login', async (req, res) => {
-    console.log(req.body)
+   if(req.body.name === 'Nayan'){
+    if(req.body.password === 'nayan'){
+        res.send('success')
+        console.log(req.body)
+        return
+    }
+   }
     await delay(2000)
-    res.send('success')
+    res.send('notvalid')
 })
 
 app.post('/sign-up', async (req, res) =>{

@@ -1,17 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 :root {
-    --color: white;
+    --color-white: white;
+    --color-light-red: #dc2828;
+    --section-skeleton: #36454F;
+    --scroll-background: rgba(128, 128, 128, 0.53);
+
+    --border-1px: 1px solid white;
+    --border-2px: 2px solid white;
+
+    --container-background: rgba(0, 0, 0, 0.4);
     --background-color: linear-gradient(to left, #C4E0E5, #4CA1AF);
-    --gradient: linear-gradient(
-        225deg,
-        #845ec2,
-        #d65db1,
-        #ff6f91,
-        #ff9671,
-        #ffc75f,
-        #f9f871
-    );
+    --gradient: linear-gradient(225deg,
+            #845ec2,
+            #d65db1,
+            #ff6f91,
+            #ff9671,
+            #ffc75f,
+            #f9f871);
 }
 
 * {
@@ -22,7 +28,7 @@
 
 body {
     background: var(--background-color);
-    color: var(--color);
+    color: var(--color-white);
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     -webkit-tap-highlight-color: transparent;
@@ -31,27 +37,30 @@ body {
 
 /*  */
 
-.loader-container{
+.loader-container {
     position: fixed;
-    background: #ffffff;
+    background: var(--color-white);
     height: 100vh;
     width: 100%;
     z-index: 5;
-    
 }
 
-@keyframes slider{
-    0%{
+@keyframes slider {
+    0% {
         bottom: 0%;
     }
 
-    100%{
-        bottom: 100%;    
+    40% {
+        bottom: 20%;
+    }
+
+    100% {
+        bottom: 100%;
     }
 
 }
 
-.loader-text{
+.loader-text {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -67,12 +76,14 @@ body {
     animation: loaderanimation 0.6s infinite alternate;
 }
 
-@keyframes loaderanimation{
-0%{
-    background-position: left;
-}
-100%{ 
-    background-position: right;}
+@keyframes loaderanimation {
+    0% {
+        background-position: left;
+    }
+
+    100% {
+        background-position: right;
+    }
 }
 
 /*  */
@@ -160,7 +171,7 @@ footer {
 
 footer a {
     text-decoration: none;
-    color: white;
+    color: var(--color-white);
 
 }
 
@@ -187,11 +198,9 @@ header,
 .form-todo-input button {
     padding: 0.5rem;
     font-size: 2rem;
-    /* color: white; */
     border: none;
-    border-bottom: 2px solid white;
+    border-bottom: var(--border-2px);
     background: transparent;
-    /* outline-color: #4CA1AF; */
     outline: none;
 
 
@@ -202,12 +211,12 @@ header,
 }
 
 .todo-input::placeholder {
-    color: white;
+    color: var(--color-white);
     font-size: 1rem;
 }
 
 .todo-input:focus {
-    background: white;
+    background: var(--color-white);
     border: none;
     transition: all 0.3s ease-in;
 }
@@ -217,7 +226,7 @@ header,
 }
 
 .todo-input:focus+button {
-    background: white;
+    background: var(--color-white);
     border: none;
     cursor: pointer;
     color: #4CA1AF;
@@ -228,7 +237,7 @@ header,
 }
 
 .form-todo-input button {
-    color: white;
+    color: var(--color-white);
     /* display: none; */
     /* visibility: hidden; */
     /* opacity: 0; */
@@ -236,7 +245,7 @@ header,
 }
 
 .todo-input:focus+button:hover {
-    color: white;
+    color: var(--color-white);
     background: #4CA1AF;
 }
 
@@ -266,13 +275,13 @@ header,
 
 /* Handle */
 .todo-list::-webkit-scrollbar-thumb {
-    background: rgba(128, 128, 128, 0.53);
+    background: var(--scroll-background);
     border-radius: 10px;
 }
 
 .todo {
     margin: 0.5rem;
-    background: white;
+    background: var(--color-white);
     color: black;
     font-size: 1.5rem;
     display: flex;
@@ -311,7 +320,7 @@ header,
 }
 
 .fa-done {
-    color: white;
+    color: var(--color-white);
     background: #6fc752;
 }
 
@@ -321,7 +330,7 @@ header,
 }
 
 .fa-trash {
-    color: white;
+    color: var(--color-white);
     background: #b33838;
 }
 
@@ -351,7 +360,7 @@ header,
     background: none;
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--color-white);
     border-radius: 100%;
     outline: none;
 }
@@ -372,7 +381,7 @@ header,
     background: none;
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--color-white);
     border-radius: 100%;
 
 }
@@ -390,7 +399,7 @@ header,
 
 }
 
-/* profile section */
+
 
 .profile-container {
     display: none;
@@ -400,17 +409,23 @@ header,
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--container-background);
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     justify-content: center;
     align-items: center;
     touch-action: none;
+    /* transition: 1s filter linear; */
 }
 
-.profile-section {
+/* Auth section */
+
+.auth-section {
+    display: block;
     min-width: 34%;
     min-height: 48%;
-    background-color: rgb(0 0 0 / 95%);
+    /* background-color: rgb(0 0 0 / 95%); */
+    backdrop-filter: blur(10px);
     font-size: 1.5rem;
     border-radius: 10px;
     overflow-y: auto;
@@ -423,7 +438,7 @@ header,
 
 .login-signup h2 {
     flex: 1;
-    padding: 0% 5% 0%;
+    padding: 5px 5% 0%;
     cursor: pointer;
 }
 
@@ -436,10 +451,8 @@ header,
 
 .login-signup h2:nth-of-type(2) {
     text-align: right;
-    background-color: #36454F;
-    /* background-color: rgba(91, 98, 105, 0.877); */
+    background-color: var(--section-skeleton);
     box-shadow: inset 4px -4px 10px -5px #333;
-    /* border-bottom-left-radius: 20px; */
     border-radius: 0px 10px 0px 10px;
 }
 
@@ -465,12 +478,10 @@ header,
     display: flex;
     align-items: center;
     flex-direction: row;
-    /* border: #3cff00 solid 2px; */
     margin-bottom: 20px;
 }
 
-.login-remeber-me{
-    /* align-self: flex-start; */
+.login-remeber-me {
     font-size: 0.8em;
 }
 
@@ -491,30 +502,25 @@ header,
 }
 
 .login-input input,
-.sign-up-input input{
+.sign-up-input input {
     background: transparent;
-    border-bottom: 2px solid white;
-    color: white;
+    border-bottom: var(--border-2px) ;
+    color: var(--color-white);
 }
 
 .login-input input:valid,
-.sign-up-input input:valid{   
-    border-bottom: 2px solid white;
+.sign-up-input input:valid {
+    border-bottom: var(--border-2px) ;
 }
 
 .login-input input:invalid,
-.sign-up-input input:invalid{
-    border-bottom: 2px solid red;
+.sign-up-input input:invalid {
+    border-bottom-color:red;
 }
 
-/* .login-input input:focus:invalid,
-.sign-up-input input:focus:invalid{
-    border-bottom: 2px solid red;
-} */
-
 .login-input input::placeholder,
-.sign-up-input input::placeholder{
-    color: white;
+.sign-up-input input::placeholder {
+    color: var(--color-white);
     font-size: 0.8em;
 
 }
@@ -536,21 +542,21 @@ header,
     height: 5.5vh;
     width: 70%;
     align-self: center;
-    border: 1px solid white;
+    border: var(--border-1px);
     background: transparent;
     /* border-radius: 5px; */
-    color: white;
+    color: var(--color-white);
     font-size: 1em;
     cursor: pointer;
 }
 
 .login-block form button:hover,
-.sign-up-block form button:hover{
-    background: white;
+.sign-up-block form button:hover {
+    background: var(--color-white);
     color: black;
 }
 
-.sign-up-block form button{
+.sign-up-block form button {
     margin: 20px 0px;
 }
 
@@ -562,34 +568,106 @@ header,
     font-size: 0.9em;
 }
 
-
-
-/* Settings menu section */
-
-.setting-container {
+/* Profile Section */
+.profile-section {
+    height: 90vh;
     display: none;
-    position: fixed;
-    z-index: 3;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-    justify-content: center;
     align-items: center;
-    touch-action: none;
+    flex-direction: column;
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 10px;
+    overflow-y: scroll;
+
 }
 
-.setting-block {
-    display: inline-block;
+.profile-header {
+    display: inline-flex;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+
+hr {
+    width: 80%;
+    border-bottom: 1px white;
+}
+
+.profile-photo {
+    width: 160px;
+    height: 160px;
+    margin-right: 20px;
+    border-radius: 50%;
+    background-color: var(--section-skeleton);
+
+    display: grid;
+    place-items: center;
+}
+
+.profile-photo span {
+    font-size: 8rem;
+}
+
+.profile-photo img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.profile-header h2 {
+    font-size: 3rem;
+}
+
+.profile-header .edit {
     position: absolute;
-    padding: 5% 5% 5%;
-    background-color:rgb(0 0 0 / 95%);
-    /* box-shadow: 0px 0px 20px 5px #000000b1; */
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.profile-info {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--section-skeleton);
+    border-radius: 10px;
+    margin: 1rem 0;
+    transition: height .5s;
+}
+
+.profile-info label {
+    text-align: left;
+    border-bottom: var(--border-1px);
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    font-size: 1.2rem;
+    width: 90%;
+
+}
+
+.profile-info button {
+    padding: 0.8rem 3rem;
+    border-radius: 10px;
+    border: var(--border-1px);
+    background: transparent;
+    color: var(--color-white);
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+
+.profile-info button:hover {
+    background: var(--color-white);
+    color: black;
+}
+
+.theme-section {
+    padding: 1rem;
     font-size: 1.5rem;
     text-align: center;
     border-radius: 10px;
+    width: 100%;
 }
 
 .background-option {
@@ -611,27 +689,28 @@ header,
 }
 
 
+.profile-section::-webkit-scrollbar {
+    width: 0px;
+}
+
 /* Handle */
-.background-option::-webkit-scrollbar-thumb {
-    background: rgba(128, 128, 128, 0.53);
+.background-option::-webkit-scrollbar-thumb,
+.profile-section::-webkit-scrollbar-thumb {
+    background: var(--scroll-background);
     border-radius: 10px;
 }
 
 .background-option div {
-    width: min-content;
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
     height: 100%;
     scroll-snap-align: start;
-    /* transition: all 0.5s ease; */
 }
 
 .activetheme {
     opacity: 0.2;
 }
-/* .activetheme::after{
-    content: "Selected";
-    position: absolute;
-} */
 
 .background-option img {
     z-index: 0;
@@ -644,11 +723,49 @@ header,
     font-size: 1.5rem;
 }
 
+.sign-out-btn {
+    padding: 0.8rem 3rem;
+    border-radius: 10px;
+    border: var(--border-1px);
+    background: transparent;
+    color: var(--color-white);
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 1rem 0;
+
+}
+
+.sign-out-btn:hover {
+    background: var(--color-light-red);
+    color: var(--color-white);
+    border-color: var(--color-light-red);
+}
+
+/* Settings menu section */
+
+.setting-container {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--container-background);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    touch-action: none;
+}
+
+
+
 
 /* media queries */
 @media (max-width:555px) {
 
-    .loader-text{
+    .loader-text {
         font-size: 4rem;
         margin-top: -50px;
     }
@@ -688,7 +805,7 @@ header,
     }
 
     .background-option {
-        width: 18rem;
+        width: 100%;
     }
 
     .background-option span {
@@ -716,11 +833,6 @@ header,
         font-size: 1.5rem;
     }
 
-    .profile-section {
-        font-size: 1rem;
-        min-width: 80%;
-    }
-
     .login-input input,
     .login-input span,
     .sign-up-input input,
@@ -734,9 +846,9 @@ header,
         height: 0;
     }
 
-        .login-remeber-me input[type="checkbox"] {
-            height: 0.8rem;
-        }
+    .login-remeber-me input[type="checkbox"] {
+        height: 0.8rem;
+    }
 
     header {
         font-size: 1.3rem;
@@ -746,5 +858,43 @@ header,
         font-size: 0.8rem;
     }
 
+    .auth-section {
+        font-size: 1rem;
+        min-width: 80%;
+    }
+
+    .profile-photo {
+        width: 110px;
+        height: 110px;
+        margin: 0px 1.5rem 0px 2rem;
+    }
+
+    .profile-photo img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-header h2 {
+        font-size: 2rem;
+    }
+
+    .theme-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .sign-out-btn {
+        padding: 0.6rem 2rem;
+    }
+
+    .profile-section {
+        padding: 1rem;
+        height: 90%;
+        border-radius: 0;
+    }
+
+    .profile-header .edit {
+        top: 40px;
+        right: 30px;
+    }
 
 }

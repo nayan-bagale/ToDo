@@ -30,16 +30,17 @@ $( function() {
         stop: function(event, ui){
             ui.item.attr('class', 'todo')
         } 
-    })
+    });
+    $("#sortable").disableSelection();
   } );
 
 $(window).on('load', function () {
     function loader_remove() {
-        $('.loader-container').css('animation','slider 0.8s linear')
+        $('.loader-container').css('animation','slider 1s linear')
         $('#loading').on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(){
             $(this).remove()
+            $('body').css('overflow','auto')
         })
-    $('body').css('overflow','auto')
     }
     window.setTimeout(loader_remove, 2000)
 })
@@ -128,8 +129,7 @@ $('body').on('click', '#login', function(){
         'box-shadow': 'none'
     })
     $('#sign-up').css({ 
-        // 'background-color': 'rgba(91, 98, 105, 0.877)',
-        'background-color': '#36454F',
+        'background-color': 'var(--section-skeleton)',
         'box-shadow': 'inset 4px -4px 10px -5px #333',
         'border-radius': '0px 10px 0px 10px'
     })
@@ -143,13 +143,26 @@ $('body').on('click', '#sign-up', function () {
         'box-shadow': 'none'
     })
     $('#login').css({
-        // 'background-color': 'rgba(91, 98, 105, 0.877)',
-        'background-color': '#36454F',
+        'background-color': 'var(--section-skeleton)',
         'box-shadow': 'inset -5px -5px 5px -5px #333',
         'border-radius': '10px 0px 10px 0px'
     })
     $('.login-block').hide();
 });
+
+// 
+$('body').on('click', '#profile-edit', function(){
+    if($('.profile-info').css('display') == 'none'){
+        $('.profile-info').css('display', 'flex')
+    }else{
+        $('.profile-info').css('display', 'none')
+    }
+});
+
+$('body').on('click', '#sign-out', function(){
+    $('.auth-section').css('display', 'block')
+    $('.profile-section').hide()
+})
 
 //Selectors
 const todoInput = $(".todo-input")
@@ -219,17 +232,10 @@ function templete(input, id) {
             </div>`
 }
 
-$('#profile').mouseup(function(e){
-    var container = $('.profile-section')
+$('#profile').mouseup(function (e) {
+    var container = $('.auth-section').css('display') == 'none' ? $('.profile-section') : $('.auth-section')
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         $('#profile-btn').click()
-    }
-})
-
-$('#setting').mouseup(function(e){
-    var container = $('.setting-block')
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-        $('#menu-btn').click()
     }
 })
 
@@ -241,8 +247,12 @@ $('#login-button').click( async function(event){
     let name = login.find('#login-email').val()
     let pass = login.find('#login-password').val()
     let box =  login.find('#remember-me').is(':checked')
-    await $.post('/sign-up', { name: name, password: pass, remeber_me: box }, function (data, status) {
-        alert(status)
+    await $.post('/login', { name: name, password: pass, remeber_me: box }, function (data, status) {
+        alert(data)
+        if(data == 'success'){
+            $('.auth-section').hide()
+            $('.profile-section').css('display','flex')
+        }
     }, 'html')
 
     animation(false)
@@ -261,6 +271,8 @@ $('#sign-up-button').click(async function (event) {
 
    animation(false)
 });
+
+
 
 function animation(bool){
     if(bool){

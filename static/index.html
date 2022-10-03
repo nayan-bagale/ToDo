@@ -15,8 +15,7 @@
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    
     <div id="loading" class="loader-container">
         <div class="loader-text">Loading ToDo</div>
     </div>
@@ -35,7 +34,7 @@
     </header>
 
     <div class="profile-container" id="profile">
-        <div class="profile-section">
+        <div class="auth-section">
             <div class="lds-ellipsis">
                 <div></div>
                 <div></div>
@@ -86,21 +85,44 @@
                 </form>
             </div>
         </div>
+
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-photo">
+                    <!-- <span class="material-symbols-sharp">account_circle</span> -->
+
+                <img src="./img/IMG_20220628_233248_656.jpg" alt="profile-photo">
+            </div>
+                <h2>Nayan Bagale</h2>
+                <div class="edit" id="profile-edit"><span class="material-symbols-sharp">edit</span></div>
+            </div>
+            <hr>
+            <div class="profile-info">
+                <label for="email">nvbagale@gmail.com</label>
+                <label for="pass">Change Password.</label>
+                <button>Save</button>
+            </div>
+
+            <div class="theme-section">
+                <h2>Color Theme</h2>
+                <div class="background-option">
+                    <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool Sky</span>
+                    </div>
+                    <div id="color2"><img src="./img/color2.png" alt="Macaroon"><span>Macaroon</span></div>
+                    <div id="color3"><img src="./img/color3.png" alt="Orchid"><span>Orchid</span></div>
+                    <div id="color4"><img src="./img/color4.png" alt="Lead"><span>Lead</span></div>
+                    <div id="color5"><img src="./img/color5.png" alt="Scarlet"><span>Scarlet</span></div>
+                    <div id="color6"><img src="./img/color6.png" alt="Coal"><span>Coal</span></div>
+                </div>
+            </div>
+            <hr>
+            <button id="sign-out" class="sign-out-btn">Sign Out</button>
+
+        </div>
     </div>
 
     <div class="setting-container" id="setting">
-        <div class="setting-block">
-            <h2>Color Theme</h2><br>
-            <div class="background-option">
-                <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool Sky</span>
-                </div>
-                <div id="color2"><img src="./img/color2.png" alt="Macaroon"><span>Macaroon</span></div>
-                <div id="color3"><img src="./img/color3.png" alt="Orchid"><span>Orchid</span></div>
-                <div id="color4"><img src="./img/color4.png" alt="Lead"><span>Lead</span></div>
-                <div id="color5"><img src="./img/color5.png" alt="Scarlet"><span>Scarlet</span></div>
-                <div id="color6"><img src="./img/color6.png" alt="Coal"><span>Coal</span></div>
-            </div>
-        </div>
+        
     </div>
     <form autocomplete="off" class="form-todo-input">
         <input type="text" name="todo-input" class="todo-input" placeholder="ToDo">
@@ -127,7 +149,9 @@
         <h2>Developed by <a href="https://github.com/nayan-bagale" target="_blank">&#60; Nayan /&#62;</a></h2>
     </footer>
     
-        
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"
     integrity="sha512-YYiD5ZhmJ0GCdJvx6Xe6HzHqHvMpJEPomXwPbsgcpMFPW+mQEeVBU6l9n+2Y+naq+CLbujk91vHyN18q6/RSYw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
