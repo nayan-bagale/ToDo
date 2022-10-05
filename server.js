@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-// const port = process.env.PORT || 3000
+
+const auth = require('./routers/auth.js')
+
 
 app.use('/',express.static('static'))
 
@@ -10,6 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+
+app.use(bodyParser.json())
+
+app.use('/auth', auth);
 
 let bgcolor = [{
     id: 'color1',
@@ -41,28 +47,6 @@ app.get('/theme', (req, res) => {
 })
 
 
-const delay = (delayInms) => {
-    return new Promise(resolve => setTimeout(resolve, delayInms));
-}
-
-app.post('/login', async (req, res) => {
-   if(req.body.name === 'Nayan'){
-    if(req.body.password === 'nayan'){
-        res.send('success')
-        console.log(req.body)
-        return
-    }
-   }
-    await delay(2000)
-    res.send('notvalid')
-})
-
-app.post('/sign-up', async (req, res) =>{
-    console.log(req.body)
-    await delay(2000)
-    res.send('success')
-})
-
 app.listen(process.env.PORT || 3000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log("Express server listening on localhost:%d in %s mode", this.address().port, app.settings.env);
   });

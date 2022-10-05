@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    
+
     <div id="loading" class="loader-container">
         <div class="loader-text">Loading ToDo</div>
     </div>
@@ -90,15 +90,13 @@
             <div class="profile-header">
                 <div class="profile-photo">
                     <!-- <span class="material-symbols-sharp">account_circle</span> -->
-
-                <img src="./img/IMG_20220628_233248_656.jpg" alt="profile-photo">
-            </div>
-                <h2>Nayan Bagale</h2>
+                </div>
+                <h2 contentEditable="false" id="username">Name</h2>
                 <div class="edit" id="profile-edit"><span class="material-symbols-sharp">edit</span></div>
             </div>
             <hr>
             <div class="profile-info">
-                <label for="email">nvbagale@gmail.com</label>
+                <label for="email" contentEditable="false" id="edit_email"></label>
                 <label for="pass">Change Password.</label>
                 <button>Save</button>
             </div>
@@ -106,7 +104,8 @@
             <div class="theme-section">
                 <h2>Color Theme</h2>
                 <div class="background-option">
-                    <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool Sky</span>
+                    <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool
+                            Sky</span>
                     </div>
                     <div id="color2"><img src="./img/color2.png" alt="Macaroon"><span>Macaroon</span></div>
                     <div id="color3"><img src="./img/color3.png" alt="Orchid"><span>Orchid</span></div>
@@ -122,7 +121,7 @@
     </div>
 
     <div class="setting-container" id="setting">
-        
+
     </div>
     <form autocomplete="off" class="form-todo-input">
         <input type="text" name="todo-input" class="todo-input" placeholder="ToDo">
@@ -148,13 +147,13 @@
     <footer>
         <h2>Developed by <a href="https://github.com/nayan-bagale" target="_blank">&#60; Nayan /&#62;</a></h2>
     </footer>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"
-    integrity="sha512-YYiD5ZhmJ0GCdJvx6Xe6HzHqHvMpJEPomXwPbsgcpMFPW+mQEeVBU6l9n+2Y+naq+CLbujk91vHyN18q6/RSYw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-YYiD5ZhmJ0GCdJvx6Xe6HzHqHvMpJEPomXwPbsgcpMFPW+mQEeVBU6l9n+2Y+naq+CLbujk91vHyN18q6/RSYw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="script.js"></script>
 </body>

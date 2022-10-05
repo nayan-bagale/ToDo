@@ -32,7 +32,7 @@ $( function() {
         } 
     });
     $("#sortable").disableSelection();
-  } );
+});
 
 $(window).on('load', function () {
     function loader_remove() {
@@ -154,14 +154,22 @@ $('body').on('click', '#sign-up', function () {
 $('body').on('click', '#profile-edit', function(){
     if($('.profile-info').css('display') == 'none'){
         $('.profile-info').css('display', 'flex')
+        $('#username').attr('contentEditable', 'true')
+        $('#edit_email').attr('contentEditable', 'true')
     }else{
         $('.profile-info').css('display', 'none')
+        $('#username').attr('contentEditable', 'false')
+        $('#edit_email').attr('contentEditable', 'false')
     }
 });
 
 $('body').on('click', '#sign-out', function(){
     $('.auth-section').css('display', 'block')
     $('.profile-section').hide()
+    $('#profile-photo-img').remove()
+    $('#username').text('name')
+    $('#edit_email').text('email')
+    
 })
 
 //Selectors
@@ -244,15 +252,29 @@ $('#login-button').click( async function(event){
     event.preventDefault(); //Prevent form from submitting
     animation(true)
     var login = $('.login-block')
-    let name = login.find('#login-email').val()
-    let pass = login.find('#login-password').val()
-    let box =  login.find('#remember-me').is(':checked')
-    await $.post('/login', { name: name, password: pass, remeber_me: box }, function (data, status) {
-        alert(data)
-        if(data == 'success'){
-            $('.auth-section').hide()
-            $('.profile-section').css('display','flex')
+    var data = {
+        email: login.find('#login-email').val(),
+        password: login.find('#login-password').val(),
+        remeber_me: login.find('#remember-me').is(':checked')
+    }
+
+    await $.post('/auth/login', data, function (data, status) {
+
+        if (data == 'Not Found') return 0
+
+        const { name , email, photo } = JSON.parse(data)
+        $('.auth-section').hide()
+        if(name != undefined){
+            $('#username').text(name)
         }
+        if (photo != undefined){
+            $('.profile-photo').append(`<img src="${ photo }" id="profile-photo-img" alt="profile-photo">`)
+        }
+
+        $('#edit_email').text(email)
+
+        $('.profile-section').css('display','flex')
+
     }, 'html')
 
     animation(false)
@@ -263,9 +285,9 @@ $('#sign-up-button').click(async function (event) {
     event.preventDefault(); //Prevent form from submitting
     animation(true)
     var sign_up = $('.sign-up-block')
-    let name = sign_up.find('#sign-up-email').val()
+    let email = sign_up.find('#sign-up-email').val()
     let pass = sign_up.find('#sign-up-password').val()
-    await $.post('/sign-up', { name: name, password: pass },function(data, status){
+    await $.post('/auth/sign-up', { email: email, password: pass },function(data, status){
         alert(status)
     },'html')
 
