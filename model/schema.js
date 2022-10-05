@@ -41,11 +41,13 @@ const usertoken = new mongoose.Schema({
     },
 
     token: {
-        type: String
+        type: String,
+        default: undefined
     },
 
     tokenexpire: {
-        type: Number
+        type: Number,
+        default: undefined
     }
 
 })

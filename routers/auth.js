@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const MONGO_URI = 'mongodb+srv://TodoDB:5huJjriJVGx6M6q9@cluster0.3my8gxr.mongodb.net/?retryWrites=true&w=majority'
 const sign_up_DB = require('../model/sign_up.js')
 const login_DB = require('../model/login.js')
+const token = require('../utility/token.js')
 
 mongoose
     .connect(MONGO_URI,
@@ -39,6 +40,8 @@ router.post('/login', async (req, res) => {
         res.send(result)
         return
     }
+
+    await token(email)
 
     // let token = uuidv4()
     // console.log(req.body)
