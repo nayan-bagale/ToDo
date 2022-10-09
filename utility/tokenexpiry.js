@@ -15,7 +15,6 @@ checkexpire = async (Existing_timestamp, Session_token) => {
 
 async function tokenexpire(token) {
     let $ = await TokenSchema.find({token: token})
-    console.log($.length)
     if($.length == 0) return `Not-found` // if token is not found in database of TokenSchema
     return await checkexpire($[0].tokenexpire, $[0].token)
 }

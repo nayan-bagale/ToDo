@@ -21,6 +21,15 @@ router.put('/:token', validate, async (req, res) => {
     res.send('scceess')
 })
 
+router.post('/:token/setting', validate, async (req, res) => {
+    console.log(req.body)
+    res.send('done')
+})
+
+router.post('/:token/todo', validate, async (req, res) => {
+    console.log(req.body)
+    res.send('done')
+})
 
 
 async function validate(req, res, next) {

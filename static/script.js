@@ -10,6 +10,18 @@ if (todo_list === null) todo_list = []
 LoadTodo()
 let bgcolor
 
+let Token = localStorage.getItem('Session_Token')
+if( Token !== null ){
+    $.ajax({
+        type: 'GET',
+        url: `/token/${ Token }`,
+        data: { get_param: 'value' },
+        success: function (data) {
+            data != 'Token Not Valid' ? userdata(JSON.parse(data)) : localStorage.removeItem("Session_Token");
+        }
+    })
+}
+
 $.ajax({ 
     type: 'GET', 
     url: '/theme', 
@@ -93,20 +105,29 @@ $('body').on('click', '#menu-btn', function(){
     }
 })
 
-$('body').on('click', '.background-option div', function(){
+$('body').on('click', '.background-option div', async function(){
     let colorid = $(this).attr('id')
+    let dict
     bgcolor.forEach((e) => {
         if(e['id'] === colorid){
             $(':root').css('--background-color', e['colorcode'])
-            let dict = {
+            dict = {
                 id: colorid,
                 colorcode: e['colorcode']
             }
             localStorage.setItem("theme", JSON.stringify(dict))
+            
         }
     })
     $('.background-option').find('.activetheme').removeClass('activetheme')
     $(this).addClass('activetheme')
+
+    await $.post(`/token/${Token}/setting`, dict, function (data, status) {
+        if (data == 'Not Found') return 0
+    }, 'html')
+
+    
+    console.log(dict)
     // console.log($(this).find('img'))
 })
 
@@ -181,7 +202,7 @@ const todoList = $(".todo-list")
 todoButton.click(addTodo)
 
 //Functions
-function addTodo(event) {
+async function addTodo(event) {
     event.preventDefault(); //Prevent form from submitting
     if (todoInput.val() === '') return
     $('.todo-list').append(templete(todoInput.val(), 'not-completed'))
@@ -193,6 +214,8 @@ function addTodo(event) {
     localStorage.setItem("todo", JSON.stringify(todo_list))
     // console.log(todo_list)
     todoInput.val('').focus()
+
+    await syncTodo(JSON.stringify(todo_list))
 
 }
 
@@ -263,19 +286,12 @@ $('#login-button').click( async function(event){
         if (data == 'Not Found') return 0
 
         console.log(JSON.parse(data))
+        userdata(JSON.parse(data))
 
-        const { name , email, photo } = JSON.parse(data)
-        $('.auth-section').hide()
-        if(name != undefined){
-            $('#username').text(name)
-        }
-        if (photo != undefined){
-            $('.profile-photo').append(`<img src="${ photo }" id="profile-photo-img" alt="profile-photo">`)
-        }
+        const {token} = JSON.parse(data)
 
-        $('#edit_email').text(email)
-
-        $('.profile-section').css('display','flex')
+        localStorage.setItem("Session_Token", token)
+        
 
     }, 'html')
 
@@ -296,7 +312,29 @@ $('#sign-up-button').click(async function (event) {
    animation(false)
 });
 
+async function syncTodo(dict){
+    await $.post(`/token/${Token}/todo`, {todo: dict}, function (data, status) {
+        if (data == 'Not Found') return 0
+    }, 'html')
+}
 
+function userdata(data) {
+    const { name, email, photo} = data
+    $('.auth-section').hide()
+    if (name != undefined) {
+        $('#username').text(name)
+    }
+    if (photo != undefined) {
+        $('.profile-photo').append(`<img src="${photo}" id="profile-photo-img" alt="profile-photo">`)
+
+    }
+
+
+    $('#edit_email').text(email)
+
+
+    $('.profile-section').css('display', 'flex')
+}
 
 function animation(bool){
     if(bool){
