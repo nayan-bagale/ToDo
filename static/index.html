@@ -29,7 +29,7 @@
 
         <h1>ToDo List</h1>
         <div class="menu-btn" id="menu-btn">
-            <button class="material-symbols-outlined">menu</button>
+            <button class="material-symbols-outlined" onclick="todosync()">cloud_sync</button>
         </div>
     </header>
 
@@ -101,6 +101,8 @@
                 <button>Save</button>
             </div>
 
+            <button onclick="todofetch()" class="sign-out-btn material-symbols-outlined"> sync</button>
+            <hr>
             <div class="theme-section">
                 <h2>Color Theme</h2>
                 <div class="background-option">

@@ -8,8 +8,6 @@ const data = require('../utility/userdata.js')
 
 app.use(express.json())
 
-
-
 router.get('/:token', validate, async (req, res) => {
     res.send(JSON.stringify(await data(req.params.token)))
 })
@@ -26,9 +24,19 @@ router.post('/:token/setting', validate, async (req, res) => {
     res.send('done')
 })
 
+router.get('/:token/todo', validate, async (req, res) => {
+    let $ = await TokenSchema.find({ token: req.params.token })
+    let _ = await DataSchema.find({ user_id: $[0].user_id })
+    const {todo_data} = _[0] 
+    console.log(todo_data)
+    res.send(todo_data)
+})
+
 router.post('/:token/todo', validate, async (req, res) => {
     console.log(req.body)
-    res.send('done')
+    let $ = await TokenSchema.find({ token: req.params.token })
+    let _ = await DataSchema.findOneAndUpdate({ user_id: $[0].user_id }, {todo_data: req.body})
+    res.send('Success')
 })
 
 
@@ -36,6 +44,7 @@ async function validate(req, res, next) {
     if (await ValidateToken(req.params.token)) {
         console.log('expired')
         res.send('Token Not Valid')
+        // res.redirect('/')
         return
     }
     next()

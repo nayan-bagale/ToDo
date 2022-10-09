@@ -7,8 +7,9 @@ try {
 }
 todo_list = JSON.parse(todo_list)
 if (todo_list === null) todo_list = []
-LoadTodo()
+// LoadTodo()
 let bgcolor
+
 
 let Token = localStorage.getItem('Session_Token')
 if( Token !== null ){
@@ -21,6 +22,8 @@ if( Token !== null ){
         }
     })
 }
+
+
 
 $.ajax({ 
     type: 'GET', 
@@ -93,17 +96,17 @@ $('body').on('click', '#done', function () {
 
 //Themes Section
 
-$('body').on('click', '#menu-btn', function(){
-    if($('#setting').css('display') == 'none'){
-        $('#setting').css('display', 'flex')
-        $('#menu-btn button').text('close')
-        $('.profile-btn').css('z-index', 1)
-    }else{
-        $('#setting').css('display', 'none')
-        $('#menu-btn button').text('menu')
-        $('.profile-btn').css('z-index', 4)
-    }
-})
+// $('body').on('click', '#menu-btn', function(){
+//     if($('#setting').css('display') == 'none'){
+//         $('#setting').css('display', 'flex')
+//         $('#menu-btn button').text('close')
+//         $('.profile-btn').css('z-index', 1)
+//     }else{
+//         $('#setting').css('display', 'none')
+//         $('#menu-btn button').text('menu')
+//         $('.profile-btn').css('z-index', 4)
+//     }
+// })
 
 $('body').on('click', '.background-option div', async function(){
     let colorid = $(this).attr('id')
@@ -190,6 +193,7 @@ $('body').on('click', '#sign-out', function(){
     $('#profile-photo-img').remove()
     $('#username').text('name')
     $('#edit_email').text('email')
+    localStorage.removeItem("Session_Token")
     
 })
 
@@ -293,6 +297,8 @@ $('#login-button').click( async function(event){
 
     }, 'html')
 
+    
+
     animation(false)
 
 });
@@ -310,6 +316,39 @@ $('#sign-up-button').click(async function (event) {
    animation(false)
 });
 
+async function todofetch() {
+    const response = await fetch(
+        `/token/${Token}/todo`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            }
+        }
+    );
+    const data = await response.json();
+
+    localStorage.setItem("todo", JSON.stringify(data))
+    LoadTodo()
+}
+
+async function todosync() {
+    const response = await fetch(
+        `/token/${Token}/todo`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(todo_list)
+        }
+    );
+    // const data = await response.json();
+    console.log(await response)
+}
+
 function userdata(data) {
     const { name, email, photo} = data
     $('.auth-section').hide()
@@ -326,6 +365,7 @@ function userdata(data) {
 
 
     $('.profile-section').css('display', 'flex')
+
 }
 
 function animation(bool){
