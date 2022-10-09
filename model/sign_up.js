@@ -4,7 +4,7 @@ const { AuthSchema, DataSchema, TokenSchema } = require('../model/schema.js')
 
 exists = async ($) => {
     let match = await AuthSchema.find({ email: $ })
-    return (match.length == 0 ?  false : true)
+    return (match.length == 0 ?  false : true) //return true if already exist account
 }
 
 
@@ -31,7 +31,7 @@ async function sign_up_DB(email, password) {
     })
     await TS.save()
 
-    return `${email} added succesfully`
+    return `${email} Account Created Succesfully`
   }
 
 module.exports = sign_up_DB

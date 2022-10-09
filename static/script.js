@@ -262,6 +262,8 @@ $('#login-button').click( async function(event){
 
         if (data == 'Not Found') return 0
 
+        console.log(JSON.parse(data))
+
         const { name , email, photo } = JSON.parse(data)
         $('.auth-section').hide()
         if(name != undefined){

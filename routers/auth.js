@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express()
 const router = express.Router()
-const { v4: uuidv4 } = require('uuid')
 const mongoose = require('mongoose')
 
 const MONGO_URI = 'mongodb+srv://TodoDB:5huJjriJVGx6M6q9@cluster0.3my8gxr.mongodb.net/?retryWrites=true&w=majority'
 const sign_up_DB = require('../model/sign_up.js')
 const login_DB = require('../model/login.js')
 const token = require('../utility/token.js')
+const UserData = require('../utility/userdata.js')
 
 mongoose
     .connect(MONGO_URI,
@@ -29,9 +29,6 @@ let data = [{
     photo: './img/IMG_20220628_233248_656.jpg'
 }]
 
-const delay = (delayInms) => {
-    return new Promise(resolve => setTimeout(resolve, delayInms));
-}
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
@@ -41,33 +38,17 @@ router.post('/login', async (req, res) => {
         return
     }
 
-    await token(email)
-
-    // let token = uuidv4()
-    // console.log(req.body)
-
-    // if(match == undefined){
-    //     res.send('Not Found')
-    //     return
-    // }
-
-    // data[match].token = token
-
-    // const _ = {
-    //     name: data[match].name,
-    //     email: data[match].email,
-    //     photo: data[match].photo,
-    //     token: token
-    // }
-
-    // console.log(data[match])
-    res.send('Successfully Logged In')
+    let NewToken = await token(email)
+    let data = await UserData(NewToken)
+    
+    res.send(`${JSON.stringify(data)}`)
 })
 
 router.post('/sign-up', async (req, res) => {
     const { email, password } = req.body
-    console.log(await sign_up_DB(email, password))
-    res.send('done')
+    let match = await sign_up_DB(email, password)
+    console.log(match)
+    res.send(match)
 })
 
 

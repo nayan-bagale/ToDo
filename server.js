@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const auth = require('./routers/auth.js')
+const user = require('./routers/user.js')
 
 
 app.use('/',express.static('static'))
@@ -15,7 +16,8 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.json())
 
-app.use('/auth', auth);
+app.use('/auth', auth)
+app.use('/token', user)
 
 let bgcolor = [{
     id: 'color1',

@@ -1,25 +1,30 @@
 const { v4: uuidv4 } = require('uuid')
 const { AuthSchema, DataSchema, TokenSchema } = require('../model/schema.js')
-const tokenexpire = require('../utility/tokenexpiry.js')
+// const tokenexpire = require('../utility/tokenexpiry.js')
+
+createToken = async (id) => {
+    let GenerateToken = uuidv4()
+    await TokenSchema.findByIdAndUpdate(id, { token: GenerateToken, tokenexpire: Date.now() + (300 * 1000) })
+    return GenerateToken
+}
 
 async function tokencheck(email) {
     let $ = await AuthSchema.find({ email: email })
     let _ = await TokenSchema.find({ user_id: $[0]._id})
+    let token
 
-    await tokenexpire(_[0].token)
+    // let result = await tokenexpire(_[0].token)
 
-     if (!(_[0].token)){     //if TOKEN is not exist
-        await TokenSchema.findByIdAndUpdate(_[0]._id, { token: uuidv4(), tokenexpire: Date.now() + (300 * 1000) })
-        console.log('Not existed token added new one')
-        
-        
+    if (!(_[0].token)){     //if TOKEN is not exist
+        token = await createToken(_[0]._id)
+        console.log('Not existed token created new one') 
     }
 
-    if ((_[0].token)){
-        await TokenSchema.findByIdAndUpdate(_[0]._id, { token: uuidv4(), tokenexpire: Date.now() + (300 * 1000) })
+    if ((_[0].token)){      //if Token is exist then create new one
+        token = await createToken(_[0]._id)
         console.log('existed token changed to new one')
     }
-
+    return token
 }
 
 module.exports = tokencheck
