@@ -202,7 +202,7 @@ const todoList = $(".todo-list")
 todoButton.click(addTodo)
 
 //Functions
-async function addTodo(event) {
+function addTodo(event) {
     event.preventDefault(); //Prevent form from submitting
     if (todoInput.val() === '') return
     $('.todo-list').append(templete(todoInput.val(), 'not-completed'))
@@ -214,8 +214,6 @@ async function addTodo(event) {
     localStorage.setItem("todo", JSON.stringify(todo_list))
     // console.log(todo_list)
     todoInput.val('').focus()
-
-    await syncTodo(JSON.stringify(todo_list))
 
 }
 
@@ -311,12 +309,6 @@ $('#sign-up-button').click(async function (event) {
 
    animation(false)
 });
-
-async function syncTodo(dict){
-    await $.post(`/token/${Token}/todo`, {todo: dict}, function (data, status) {
-        if (data == 'Not Found') return 0
-    }, 'html')
-}
 
 function userdata(data) {
     const { name, email, photo} = data

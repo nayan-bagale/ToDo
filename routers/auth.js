@@ -2,8 +2,10 @@ const express = require('express')
 const app = express()
 const router = express.Router()
 const mongoose = require('mongoose')
+require('dotenv').config()
 
-const MONGO_URI = 'mongodb+srv://TodoDB:5huJjriJVGx6M6q9@cluster0.3my8gxr.mongodb.net/?retryWrites=true&w=majority'
+
+const MONGO_URI = process.env.MONGO_URI
 const sign_up_DB = require('../model/sign_up.js')
 const login_DB = require('../model/login.js')
 const token = require('../utility/token.js')
