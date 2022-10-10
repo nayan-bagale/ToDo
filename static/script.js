@@ -7,7 +7,6 @@ try {
 }
 todo_list = JSON.parse(todo_list)
 if (todo_list === null) todo_list = []
-// LoadTodo()
 let bgcolor
 
 
@@ -283,7 +282,7 @@ $('#login-button').click( async function(event){
         remeber_me: login.find('#remember-me').is(':checked')
     }
 
-    await $.post('/auth/login', data, function (data, status) {
+    await $.post('/auth/login', data, async function (data, status) {
 
         if (data == 'Not Found') return 0
 
@@ -293,6 +292,8 @@ $('#login-button').click( async function(event){
         const {token} = JSON.parse(data)
 
         localStorage.setItem("Session_Token", token)
+
+        await todofetch(token)
         
 
     }, 'html')
@@ -316,9 +317,9 @@ $('#sign-up-button').click(async function (event) {
    animation(false)
 });
 
-async function todofetch() {
+async function todofetch(token=Token) {
     const response = await fetch(
-        `/token/${Token}/todo`,
+        `/token/${token}/todo`,
         {
             method: 'GET',
             headers: {
@@ -365,6 +366,8 @@ function userdata(data) {
 
 
     $('.profile-section').css('display', 'flex')
+
+    LoadTodo()
 
 }
 
