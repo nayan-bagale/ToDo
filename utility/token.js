@@ -4,7 +4,7 @@ const { AuthSchema, DataSchema, TokenSchema } = require('../model/schema.js')
 
 createToken = async (id) => {
     let GenerateToken = uuidv4()
-    await TokenSchema.findByIdAndUpdate(id, { token: GenerateToken, tokenexpire: Date.now() + (300 * 1000) })
+    await TokenSchema.findByIdAndUpdate(id, { token: GenerateToken, tokenexpire: Date.now() + (1000 * 60 * 60 * 24) })
     return GenerateToken
 }
 
