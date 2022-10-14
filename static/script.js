@@ -1,5 +1,5 @@
 let todo_list = localStorage.getItem("todo")
-let theme = localStorage.getItem("theme")
+let theme //= localStorage.getItem("theme")
 try {
     theme = JSON.parse(theme)
 } catch (error) {
@@ -23,29 +23,10 @@ if( Token !== null ){
 }
 
 
-
-$.ajax({ 
-    type: 'GET', 
-    url: '/theme', 
-    data: { get_param: 'value' }, 
-    success: function (data) { 
-        bgcolor = data
-    }
-})
-
-$( function() {
-    $( "#sortable" ).sortable({
-        axis:'y',
-        scrollSensitivity: 100,
-        scrollSpeed: 40,
-        start: function(event, ui) {
-            ui.item.addClass('active-todo')
-        },
-        stop: function(event, ui){
-            ui.item.attr('class', 'todo')
-        } 
-    });
-    $("#sortable").disableSelection();
+$( async function() {
+    const response = await fetch('/theme')
+    const data = await response.json()
+    bgcolor = data
 });
 
 $(window).on('load', function () {
@@ -93,19 +74,6 @@ $('body').on('click', '#done', function () {
     localStorage.setItem("todo", JSON.stringify(todo_list))
 })
 
-//Themes Section
-
-// $('body').on('click', '#menu-btn', function(){
-//     if($('#setting').css('display') == 'none'){
-//         $('#setting').css('display', 'flex')
-//         $('#menu-btn button').text('close')
-//         $('.profile-btn').css('z-index', 1)
-//     }else{
-//         $('#setting').css('display', 'none')
-//         $('#menu-btn button').text('menu')
-//         $('.profile-btn').css('z-index', 4)
-//     }
-// })
 
 $('body').on('click', '.background-option div', async function(){
     let colorid = $(this).attr('id')
@@ -193,7 +161,7 @@ $('body').on('click', '#sign-out', function(){
     $('#username').text('name')
     $('#edit_email').text('email')
     localStorage.removeItem("Session_Token")
-    
+    window.location.replace("/")
 })
 
 //Selectors
@@ -220,34 +188,35 @@ function addTodo(event) {
 
 }
 
-function LoadTodo() {
-    if (todo_list.length === 0){
-        if(theme !== null) {
-            $(':root').css('--background-color', theme['colorcode'])
-            $('.background-option').find('.activetheme').removeClass('activetheme')
-            let id = theme['id']
-            $('#'+id).addClass('activetheme')
+function LoadTodo(todo_list = []) {
+    if (todo_list.length == 0){
+        // if(theme !== null) {
+        //     $(':root').css('--background-color', theme['colorcode'])
+        //     $('.background-option').find('.activetheme').removeClass('activetheme')
+        //     let id = theme['id']
+        //     $('#'+id).addClass('activetheme')
         
-        }
-        else {
-            localStorage.setItem("theme", $('body').css('background'))
-        }
+        // }
+        // else {
+        //     localStorage.setItem("theme", $('body').css('background'))
+        // }
+        console.log('no Todos')
     }
     else{
         todo_list.forEach(element => {
             $('.todo-list').append(templete(element.task, element.status))
         });
         // console.log(theme)
-        if(theme !== null) {
-            $(':root').css('--background-color', theme['colorcode'])
-            $('.background-option').find('.activetheme').removeClass('activetheme')
-            let id = theme['id']
-            $('#'+id).addClass('activetheme')
+        // if(theme !== null) {
+        //     $(':root').css('--background-color', theme['colorcode'])
+        //     $('.background-option').find('.activetheme').removeClass('activetheme')
+        //     let id = theme['id']
+        //     $('#'+id).addClass('activetheme')
         
-        }
-        else {
-            localStorage.setItem("theme", $('body').css('background'))
-        }
+        // }
+        // else {
+        //     localStorage.setItem("theme", $('body').css('background'))
+        // }
     }
 
 }
@@ -293,7 +262,7 @@ $('#login-button').click( async function(event){
 
         localStorage.setItem("Session_Token", token)
 
-        await todofetch(token)
+        // await todofetch(token)
         
 
     }, 'html')
@@ -330,8 +299,9 @@ async function todofetch(token=Token) {
     );
     const data = await response.json();
 
-    localStorage.setItem("todo", JSON.stringify(data))
-    LoadTodo()
+    // localStorage.setItem("todo", JSON.stringify(data))
+    console.log(data)
+    LoadTodo(data)
 }
 
 async function todosync() {
@@ -367,7 +337,7 @@ function userdata(data) {
 
     $('.profile-section').css('display', 'flex')
 
-    LoadTodo()
+    todofetch()
 
 }
 

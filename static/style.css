@@ -741,24 +741,6 @@ hr {
     border-color: var(--color-light-red);
 }
 
-/* Settings menu section */
-
-.setting-container {
-    display: none;
-    position: fixed;
-    z-index: 3;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--container-background);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    justify-content: center;
-    align-items: center;
-    touch-action: none;
-}
-
 
 
 
