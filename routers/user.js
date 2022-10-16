@@ -20,8 +20,9 @@ router.put('/:token', validate, async (req, res) => {
 })
 
 router.post('/:token/setting', validate, async (req, res) => {
-    console.log(req.body)
-    res.send('done')
+    let $ = await TokenSchema.find({ token: req.params.token })
+    let _ = await DataSchema.findOneAndUpdate({ user_id: $[0].user_id }, { settings: req.body })
+    res.status(200).send('done')
 })
 
 router.get('/:token/todo', validate, async (req, res) => {
@@ -42,9 +43,10 @@ router.post('/:token/todo', validate, async (req, res) => {
 
 async function validate(req, res, next) {
     if (await ValidateToken(req.params.token)) {
-        console.log('expired')
-        res.send('Token Not Valid')
-        // res.redirect('/')
+        console.log(req.params.token + 'Token expired')
+        res.status(201).json({
+            error: 'Unauthorised'
+        })
         return
     }
     next()

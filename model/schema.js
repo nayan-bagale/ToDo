@@ -29,6 +29,9 @@ const userData = new mongoose.Schema({
     photo: {
         type: String
     },
+    settings: {
+        type: Object
+    },
     todo_data: []
 })
 

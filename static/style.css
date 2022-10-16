@@ -347,6 +347,7 @@ header,
 /* Menu button */
 
 .menu-btn {
+    display: none;
     position: absolute;
     z-index: 4;
     right: 0;

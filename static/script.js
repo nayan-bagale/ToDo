@@ -1,25 +1,23 @@
-let todo_list = localStorage.getItem("todo")
-let theme //= localStorage.getItem("theme")
-try {
-    theme = JSON.parse(theme)
-} catch (error) {
-    console.log(error)
-}
-todo_list = JSON.parse(todo_list)
-if (todo_list === null) todo_list = []
+let theme
+let todo_list = []
 let bgcolor
+
 
 
 let Token = localStorage.getItem('Session_Token')
 if( Token !== null ){
-    $.ajax({
-        type: 'GET',
-        url: `/token/${ Token }`,
-        data: { get_param: 'value' },
-        success: function (data) {
-            data != 'Token Not Valid' ? userdata(JSON.parse(data)) : localStorage.removeItem("Session_Token");
+    $(async function () {
+        const response = await fetch(`/token/${Token}`)
+        const data = await response.json()
+        if(response.status != 201){
+            Token = data.token
+            userdata(data)
+        }else{
+            localStorage.removeItem("Session_Token")
         }
-    })
+    });
+
+    $('#menu-btn').css('display', 'block')
 }
 
 
@@ -46,7 +44,8 @@ $('body').on('click', '.fa-trash', function () {
     todo_list = $.grep(todo_list, function (element) {
         return element['task'] != tempvalue
     })
-    localStorage.setItem("todo", JSON.stringify(todo_list))
+    
+
     $(this).parent().addClass('fall')
     $(this).parent().one('transitionend', function () {
         $(this).remove()
@@ -71,7 +70,6 @@ $('body').on('click', '#done', function () {
         // console.log(todo_list[taskidx])
         todo_list[taskidx]['status'] = "completed"
     }
-    localStorage.setItem("todo", JSON.stringify(todo_list))
 })
 
 
@@ -182,41 +180,18 @@ function addTodo(event) {
         'status': 'not-completed'
     }
     todo_list.push(dict)
-    localStorage.setItem("todo", JSON.stringify(todo_list))
-    // console.log(todo_list)
     todoInput.val('').focus()
 
 }
 
 function LoadTodo(todo_list = []) {
     if (todo_list.length == 0){
-        // if(theme !== null) {
-        //     $(':root').css('--background-color', theme['colorcode'])
-        //     $('.background-option').find('.activetheme').removeClass('activetheme')
-        //     let id = theme['id']
-        //     $('#'+id).addClass('activetheme')
-        
-        // }
-        // else {
-        //     localStorage.setItem("theme", $('body').css('background'))
-        // }
         console.log('no Todos')
     }
     else{
         todo_list.forEach(element => {
             $('.todo-list').append(templete(element.task, element.status))
         });
-        // console.log(theme)
-        // if(theme !== null) {
-        //     $(':root').css('--background-color', theme['colorcode'])
-        //     $('.background-option').find('.activetheme').removeClass('activetheme')
-        //     let id = theme['id']
-        //     $('#'+id).addClass('activetheme')
-        
-        // }
-        // else {
-        //     localStorage.setItem("theme", $('body').css('background'))
-        // }
     }
 
 }
@@ -245,29 +220,34 @@ $('#login-button').click( async function(event){
     event.preventDefault(); //Prevent form from submitting
     animation(true)
     var login = $('.login-block')
-    var data = {
+    var logindata = {
         email: login.find('#login-email').val(),
         password: login.find('#login-password').val(),
         remeber_me: login.find('#remember-me').is(':checked')
     }
 
-    await $.post('/auth/login', data, async function (data, status) {
+    const response = await fetch(
+        `/auth/login`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(logindata)
+        }
+    );
 
-        if (data == 'Not Found') return 0
-
-        console.log(JSON.parse(data))
-        userdata(JSON.parse(data))
-
-        const {token} = JSON.parse(data)
-
-        localStorage.setItem("Session_Token", token)
-
-        // await todofetch(token)
-        
-
-    }, 'html')
-
-    
+    if(!response.ok){
+        console.log('Not Found')
+        animation(false)
+        return
+    }
+    const data = await response.json()
+    Token = data.token  //saving temp token
+    userdata(data)
+    if (logindata.remeber_me) localStorage.setItem("Session_Token", Token) // storing token for sessions
+    $('#menu-btn').css('display', 'block')
 
     animation(false)
 
@@ -300,6 +280,7 @@ async function todofetch(token=Token) {
     const data = await response.json();
 
     // localStorage.setItem("todo", JSON.stringify(data))
+    todo_list = data;
     console.log(data)
     LoadTodo(data)
 }
@@ -321,7 +302,7 @@ async function todosync() {
 }
 
 function userdata(data) {
-    const { name, email, photo} = data
+    const { name, email, photo, settings, token} = data
     $('.auth-section').hide()
     if (name != undefined) {
         $('#username').text(name)
@@ -331,13 +312,21 @@ function userdata(data) {
 
     }
 
+    if (settings != undefined) {
+        $(':root').css('--background-color', settings['colorcode'])
+        $('.background-option').find('.activetheme').removeClass('activetheme')
+        let id = settings['id']
+        $('#'+id).addClass('activetheme')
+
+    }
+
 
     $('#edit_email').text(email)
 
 
     $('.profile-section').css('display', 'flex')
 
-    todofetch()
+    todofetch(token)
 
 }
 

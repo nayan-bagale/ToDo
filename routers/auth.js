@@ -36,7 +36,8 @@ router.post('/login', async (req, res) => {
     const { email, password, remeber_me } = req.body
     const result = await login_DB(email, password)
     if (result != 'logged in'){
-        res.send(result)
+        console.log(result)
+        res.status(404)
         return
     }
 

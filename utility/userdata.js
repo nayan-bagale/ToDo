@@ -9,6 +9,7 @@ async function UserData(Token) { // To find userdata using Token
         name: name,
         email: email,
         photo: _[0].photo,
+        settings: _[0].settings,
         token: Token
     }
 
