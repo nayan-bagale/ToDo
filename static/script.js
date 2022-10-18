@@ -1,6 +1,7 @@
 let theme
 let todo_list = []
 let bgcolor
+var formdata = new FormData()
 
 
 
@@ -83,7 +84,7 @@ $('body').on('click', '.background-option div', async function(){
                 id: colorid,
                 colorcode: e['colorcode']
             }
-            localStorage.setItem("theme", JSON.stringify(dict))
+            // localStorage.setItem("theme", JSON.stringify(dict))
             
         }
     })
@@ -95,7 +96,7 @@ $('body').on('click', '.background-option div', async function(){
     }, 'html')
 
     
-    console.log(dict)
+    // console.log(dict)
     // console.log($(this).find('img'))
 })
 
@@ -140,16 +141,26 @@ $('body').on('click', '#sign-up', function () {
 });
 
 // 
-$('body').on('click', '#profile-edit', function(){
+$('body').on('click', '#profile-edit',async function(){
     if($('.profile-info').css('display') == 'none'){
         $('.profile-info').css('display', 'flex')
         $('#username').attr('contentEditable', 'true')
         $('#edit_email').attr('contentEditable', 'true')
+        $('.upload-image').css('display', 'grid')
     }else{
         $('.profile-info').css('display', 'none')
         $('#username').attr('contentEditable', 'false')
         $('#edit_email').attr('contentEditable', 'false')
+        $('.upload-image').css('display', 'none')
+        const response = await fetch(`/token/${Token}`)
+        const data = await response.json()
+        if (response.status != 201) {
+            userdata(data)
+        } else {
+            localStorage.removeItem("Session_Token")
+        }
     }
+
 });
 
 $('body').on('click', '#sign-out', function(){
@@ -185,10 +196,7 @@ function addTodo(event) {
 }
 
 function LoadTodo(todo_list = []) {
-    if (todo_list.length == 0){
-        console.log('no Todos')
-    }
-    else{
+    if (todo_list.length != 0){
         todo_list.forEach(element => {
             $('.todo-list').append(templete(element.task, element.status))
         });
@@ -246,6 +254,8 @@ $('#login-button').click( async function(event){
     const data = await response.json()
     Token = data.token  //saving temp token
     userdata(data)
+    todofetch(data.token)
+
     if (logindata.remeber_me) localStorage.setItem("Session_Token", Token) // storing token for sessions
     $('#menu-btn').css('display', 'block')
 
@@ -281,7 +291,7 @@ async function todofetch(token=Token) {
 
     // localStorage.setItem("todo", JSON.stringify(data))
     todo_list = data;
-    console.log(data)
+    // console.log(data)
     LoadTodo(data)
 }
 
@@ -302,12 +312,13 @@ async function todosync() {
 }
 
 function userdata(data) {
-    const { name, email, photo, settings, token} = data
+    const { name, email, photo, settings} = data
     $('.auth-section').hide()
     if (name != undefined) {
         $('#username').text(name)
     }
     if (photo != undefined) {
+        $('#profile-photo-img').remove()
         $('.profile-photo').append(`<img src="${photo}" id="profile-photo-img" alt="profile-photo">`)
 
     }
@@ -326,8 +337,7 @@ function userdata(data) {
 
     $('.profile-section').css('display', 'flex')
 
-    todofetch(token)
-
+    
 }
 
 function animation(bool){
@@ -344,3 +354,37 @@ function animation(bool){
     }
 }
 
+async function saveprofile() {
+    let dict = {
+        name: $('#username').text(),
+        email: $('#edit_email').text()
+    }
+
+    const response = await fetch(
+        `/token/${Token}/`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(dict)
+        }
+    );
+    const data = await response
+    if(response.ok) console.log(response)
+
+
+    $('.profile-info').css('display', 'none')
+    $('#username').attr('contentEditable', 'false')
+    $('#edit_email').attr('contentEditable', 'false')
+    $('.upload-image').css('display', 'none')
+
+    // if (profile_img != undefined) await profileupload(profile_img.files[0])
+
+  }
+
+
+$("#btn-upload-image").on('click', function () {
+    alert('Feature is coming soon...')
+});

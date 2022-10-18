@@ -89,7 +89,13 @@
         <div class="profile-section">
             <div class="profile-header">
                 <div class="profile-photo">
-                    <!-- <span class="material-symbols-sharp">account_circle</span> -->
+                    <div class="upload-image">
+                        <span id="btn-upload-image" class="material-symbols-outlined">
+                            file_upload
+                        </span>
+                    </div>
+                    <!-- <img src="" id="profile-photo-img" alt="profile-photo"> -->
+                    <input type="file" id="image" name="image" class="image">
                 </div>
                 <h2 contentEditable="false" id="username">Name</h2>
                 <div class="edit" id="profile-edit"><span class="material-symbols-sharp">edit</span></div>
@@ -97,8 +103,8 @@
             <hr>
             <div class="profile-info">
                 <label for="email" contentEditable="false" id="edit_email"></label>
-                <label for="pass">Change Password.</label>
-                <button>Save</button>
+                <!-- <label for="pass">Change Password.</label> -->
+                <button onclick="saveprofile()">Save</button>
             </div>
 
             <button onclick="todofetch()" class="sign-out-btn material-symbols-outlined"> sync</button>
