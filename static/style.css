@@ -433,6 +433,10 @@ header,
     overflow-y: auto;
 }
 
+.auth-section::-webkit-scrollbar{
+    width: 0px;
+}
+
 .auth-section-error {
     display: none;
     text-align: center;

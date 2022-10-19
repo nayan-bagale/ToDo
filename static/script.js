@@ -23,8 +23,6 @@ if( Token !== null ){
 
 }
 
-
-
 $(window).on('load', function () {
     function loader_remove() {
         $('.loader-container').css('animation','slider 1s linear')
@@ -144,31 +142,6 @@ $('body').on('click', '#sign-up', function () {
     $('.login-block').hide();
 });
 
-// 
-$('body').on('click', '#profile-edit',async function(){
-    if($('.profile-info').css('display') == 'none'){
-        $('.profile-info').css('display', 'flex')
-        $('#username').attr('contentEditable', 'true')
-        $('#edit_email').attr('contentEditable', 'true')
-        $('.upload-image').css('display', 'grid')
-    }else{
-        $('.profile-info').css('display', 'none')
-        $('#username').attr('contentEditable', 'false')
-        $('#edit_email').attr('contentEditable', 'false')
-        $('.upload-image').css('display', 'none')
-    }
-
-});
-
-$('body').on('click', '#sign-out', function(){
-    $('.auth-section').css('display', 'block')
-    $('.profile-section').hide()
-    $('#profile-photo-img').remove()
-    $('#username').text('name')
-    $('#edit_email').text('email')
-    localStorage.removeItem("Session_Token")
-    window.location.replace("/")
-})
 
 //Selectors
 const todoInput = $(".todo-input")
@@ -192,7 +165,6 @@ function addTodo(event) {
 
 }
 
-
 function templete(input, id) {
     return `<div class="todo" id="${id}">
                 <li>${input}</li>
@@ -212,7 +184,7 @@ $('#profile').mouseup(function (e) {
     }
 })
 
-
+// Authenticate Section
 $('#login-button').click( async function(event){
     event.preventDefault(); //Prevent form from submitting
     animation(true)
@@ -243,7 +215,7 @@ $('#login-button').click( async function(event){
     const data = await response.json()
     if(data.error){
         animation(false)
-        responseChecker(data.message, 'login')
+        ErrorPopUp(data.message, 'login')
         return
     }
     
@@ -273,6 +245,10 @@ $('#sign-up-button').click(async function (event) {
         animation(false)
         return
     }
+    if(!ValidatePassword(obj.password)){
+        animation(false)
+        return
+    }
 
     const response = await fetch(
         `/auth/sign-up`,
@@ -289,7 +265,7 @@ $('#sign-up-button').click(async function (event) {
     data = await response.json()
     if (data.error) {
         animation(false)
-        responseChecker(data.message, 'sign-up')
+        ErrorPopUp(data.message, 'sign-up')
         return
     }
 
@@ -299,24 +275,46 @@ $('#sign-up-button').click(async function (event) {
 
 function ValidateEmail(inputText) {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (inputText.match(mailformat)) {
+    if( inputText == ''){
+        ErrorPopUp('Email is required', 'email')
+        return false;
+    }
+    else if (inputText.match(mailformat)) {
         return true;
     }
     else {
-        responseChecker('Invalid Email Address', 'email')
+        ErrorPopUp('Invalid Email Address', 'email')
         return false;
     }
 }
 
 function ValidatePassword(inputText) {
     if( inputText == ''){
+        ErrorPopUp('Password is required','password')
         return false
-    }else if( inputText.length < 8){
+    }else if( inputText.length <= 8){
+        ErrorPopUp('Password length must be atleast 8 characters', 'password')
         return false
     }else{
         return true
     }
-  }
+}
+
+async function ErrorPopUp(error, section) {
+    let errorpopup = $('.auth-section-error')
+    errorpopup.css('animation', 'none')
+    errorpopup.text(error)
+    errorpopup.css('display', 'block')
+    errorpopup.css('animation', 'errorup 0.5s linear')
+    await sleep(4000)
+    errorpopup.css('animation', 'errordown 0.5s linear')
+    await sleep(500)
+    errorpopup.css('display', 'none')
+    errorpopup.text('')
+    console.log(error, section)
+}
+
+// End Authenticate Section
 
 async function todofetch(token=Token) {
     const response = await fetch(
@@ -431,6 +429,31 @@ async function saveprofile() {
 
 }
 
+// 
+$('body').on('click', '#profile-edit', async function () {
+    if ($('.profile-info').css('display') == 'none') {
+        $('.profile-info').css('display', 'flex')
+        $('#username').attr('contentEditable', 'true')
+        $('#edit_email').attr('contentEditable', 'true')
+        $('.upload-image').css('display', 'grid')
+    } else {
+        $('.profile-info').css('display', 'none')
+        $('#username').attr('contentEditable', 'false')
+        $('#edit_email').attr('contentEditable', 'false')
+        $('.upload-image').css('display', 'none')
+    }
+
+});
+
+$('body').on('click', '#sign-out', function () {
+    $('.auth-section').css('display', 'block')
+    $('.profile-section').hide()
+    $('#profile-photo-img').remove()
+    $('#username').text('name')
+    $('#edit_email').text('email')
+    localStorage.removeItem("Session_Token")
+    window.location.replace("/")
+})
 
 $("#btn-upload-image").on('click', function () {
     alert('Feature is coming soon...')
@@ -440,15 +463,3 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function responseChecker(error, section) {
-    let errorpopup = $('.auth-section-error')
-    errorpopup.text(error)
-    errorpopup.css('display', 'block')
-    errorpopup.css('animation', 'errorup 0.5s linear')
-    await sleep(4000)
-    errorpopup.css('animation', 'errordown 0.5s linear')
-    await sleep(500)
-    errorpopup.css('display', 'none')
-    errorpopup.text('')
-    console.log(error, section)
-  }
