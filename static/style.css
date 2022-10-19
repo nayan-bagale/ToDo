@@ -422,7 +422,8 @@ header,
 /* Auth section */
 
 .auth-section {
-    display: block;
+    display: flex;
+    flex-direction: column;
     min-width: 34%;
     min-height: 48%;
     /* background-color: rgb(0 0 0 / 95%); */
@@ -431,6 +432,39 @@ header,
     border-radius: 10px;
     overflow-y: auto;
 }
+
+.auth-section-error {
+    display: none;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background: var(--color-light-red);
+    font-size: 18px;
+    /* animation: errorup 1s linear; */
+}
+
+@keyframes errorup {
+    0%{
+        height: 0%;
+    }
+    100%{
+        height: 30px;
+    }
+}
+
+@keyframes errordown {
+    0% {
+        height: 30px;
+    }
+
+    100% {
+        height: 0%;
+    }
+}
+
+
 
 /* login signUp section change button */
 .login-signup {
@@ -568,6 +602,8 @@ header,
     cursor: pointer;
     font-size: 0.9em;
 }
+
+
 
 /* Profile Section */
 .profile-section {
@@ -887,8 +923,8 @@ hr {
     }
 
     .profile-photo {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
         margin: 0px 1.5rem 0px 2rem;
     }
 

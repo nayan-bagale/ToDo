@@ -9,10 +9,13 @@ exists = async ($) => {
 
 async function login_DB(email, password) {
     let match = await exists(email)
-    if (match == false) { return `${email} is not found` } // if email not found return
+    if (match == false) { return {
+        message: `${email} is not found`,
+        error: true
+    } } // if email not found return
 
     const $ = await bcrypt.compare(password, match[0].hash)
-    return (($) ? `logged in` : `Password is wrong`) // if password is matched then return else return wrong pass
+    return (($) ? { message: `logged in`, error: false } : { message: `Password is wrong`, error: true }) // if password is matched then return else return wrong pass
 }
 
 

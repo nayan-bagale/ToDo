@@ -22,7 +22,7 @@
     <header>
         <div class="profile-btn" id="profile-btn">
             <button class="material-symbols-outlined">
-                person_filled
+                account_circle
                 <!-- <img src="#" alt="profile"> -->
             </button>
         </div>
@@ -66,9 +66,16 @@
                     <button type="submit" id="login-button">login</button>
                     <label for="forget-pass" class="forget-pass">Forget Password</label>
                 </form>
+                
             </div>
             <div class="sign-up-block" style="display: none">
                 <form>
+                    <div class="sign-up-input">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                        <input type="name" name="name" id="sign-up-name" placeholder="Name">
+                    </div>
                     <div class="sign-up-input">
                         <span class="material-symbols-outlined">
                             alternate_email
@@ -84,6 +91,7 @@
                     <button type="submit" id="sign-up-button">Sign up</button>
                 </form>
             </div>
+            <span id="auth-section-error" class="auth-section-error">Error</span>
         </div>
 
         <div class="profile-section">

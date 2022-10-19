@@ -1,7 +1,6 @@
 let theme
 let todo_list = []
 let bgcolor
-var formdata = new FormData()
 
 
 
@@ -13,20 +12,18 @@ if( Token !== null ){
         if(response.status != 201){
             Token = data.token
             userdata(data)
+            todofetch()
+            $('#menu-btn').css('display', 'block')
+
         }else{
             localStorage.removeItem("Session_Token")
         }
     });
 
-    $('#menu-btn').css('display', 'block')
+
 }
 
 
-$( async function() {
-    const response = await fetch('/theme')
-    const data = await response.json()
-    bgcolor = data
-});
 
 $(window).on('load', function () {
     function loader_remove() {
@@ -73,7 +70,7 @@ $('body').on('click', '#done', function () {
     }
 })
 
-
+//theme
 $('body').on('click', '.background-option div', async function(){
     let colorid = $(this).attr('id')
     let dict
@@ -99,6 +96,13 @@ $('body').on('click', '.background-option div', async function(){
     // console.log(dict)
     // console.log($(this).find('img'))
 })
+
+$(async function () {
+    const response = await fetch('/theme')
+    const data = await response.json()
+    bgcolor = data
+});
+
 
 //Profile Section
 
@@ -152,13 +156,6 @@ $('body').on('click', '#profile-edit',async function(){
         $('#username').attr('contentEditable', 'false')
         $('#edit_email').attr('contentEditable', 'false')
         $('.upload-image').css('display', 'none')
-        const response = await fetch(`/token/${Token}`)
-        const data = await response.json()
-        if (response.status != 201) {
-            userdata(data)
-        } else {
-            localStorage.removeItem("Session_Token")
-        }
     }
 
 });
@@ -195,14 +192,6 @@ function addTodo(event) {
 
 }
 
-function LoadTodo(todo_list = []) {
-    if (todo_list.length != 0){
-        todo_list.forEach(element => {
-            $('.todo-list').append(templete(element.task, element.status))
-        });
-    }
-
-}
 
 function templete(input, id) {
     return `<div class="todo" id="${id}">
@@ -234,6 +223,11 @@ $('#login-button').click( async function(event){
         remeber_me: login.find('#remember-me').is(':checked')
     }
 
+    if(!ValidateEmail(logindata.email)) {
+        animation(false)
+        return
+    }
+
     const response = await fetch(
         `/auth/login`,
         {
@@ -246,12 +240,13 @@ $('#login-button').click( async function(event){
         }
     );
 
-    if(!response.ok){
-        console.log('Not Found')
+    const data = await response.json()
+    if(data.error){
         animation(false)
+        responseChecker(data.message, 'login')
         return
     }
-    const data = await response.json()
+    
     Token = data.token  //saving temp token
     userdata(data)
     todofetch(data.token)
@@ -267,14 +262,61 @@ $('#sign-up-button').click(async function (event) {
     event.preventDefault(); //Prevent form from submitting
     animation(true)
     var sign_up = $('.sign-up-block')
-    let email = sign_up.find('#sign-up-email').val()
-    let pass = sign_up.find('#sign-up-password').val()
-    await $.post('/auth/sign-up', { email: email, password: pass },function(data, status){
-        alert(status)
-    },'html')
+    
+    let obj = {
+        name: sign_up.find('#sign-up-name').val(),
+        email: sign_up.find('#sign-up-email').val(),
+        password: sign_up.find('#sign-up-password').val()
+    }
+
+    if (!ValidateEmail(obj.email)) {
+        animation(false)
+        return
+    }
+
+    const response = await fetch(
+        `/auth/sign-up`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type':
+                    'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(obj)
+        }
+    )
+
+    data = await response.json()
+    if (data.error) {
+        animation(false)
+        responseChecker(data.message, 'sign-up')
+        return
+    }
+
 
    animation(false)
 });
+
+function ValidateEmail(inputText) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (inputText.match(mailformat)) {
+        return true;
+    }
+    else {
+        responseChecker('Invalid Email Address', 'email')
+        return false;
+    }
+}
+
+function ValidatePassword(inputText) {
+    if( inputText == ''){
+        return false
+    }else if( inputText.length < 8){
+        return false
+    }else{
+        return true
+    }
+  }
 
 async function todofetch(token=Token) {
     const response = await fetch(
@@ -287,12 +329,17 @@ async function todofetch(token=Token) {
             }
         }
     );
-    const data = await response.json();
+    if(!response.ok){
 
-    // localStorage.setItem("todo", JSON.stringify(data))
+    }
+    const data = await response.json();
+    
     todo_list = data;
-    // console.log(data)
-    LoadTodo(data)
+    if (todo_list.length != 0) {
+        todo_list.forEach(element => {
+            $('.todo-list').append(templete(element.task, element.status))
+        });
+    }
 }
 
 async function todosync() {
@@ -382,9 +429,26 @@ async function saveprofile() {
 
     // if (profile_img != undefined) await profileupload(profile_img.files[0])
 
-  }
+}
 
 
 $("#btn-upload-image").on('click', function () {
     alert('Feature is coming soon...')
 });
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function responseChecker(error, section) {
+    let errorpopup = $('.auth-section-error')
+    errorpopup.text(error)
+    errorpopup.css('display', 'block')
+    errorpopup.css('animation', 'errorup 0.5s linear')
+    await sleep(4000)
+    errorpopup.css('animation', 'errordown 0.5s linear')
+    await sleep(500)
+    errorpopup.css('display', 'none')
+    errorpopup.text('')
+    console.log(error, section)
+  }

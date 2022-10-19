@@ -4,16 +4,24 @@ const { AuthSchema, DataSchema, TokenSchema } = require('../model/schema.js')
 
 exists = async ($) => {
     let match = await AuthSchema.find({ email: $ })
+    console.log($)
+    console.log(match)
     return (match.length == 0 ?  false : true) //return true if already exist account
 }
 
 
-async function sign_up_DB(email, password) {
+async function sign_up_DB(data) {
 
-    if(await exists(email) == true){return `${email} already exists`}
+    const { name, email, password } = data
+
+    if(await exists(email)){return {
+        message: `${email} is Already exists`,
+        error: true
+    }}
 
     hash = await bcrypt.hashSync(password, 10)        
     let AS = new AuthSchema({
+        name: name,
         email: email,
         hash: hash
     })
@@ -31,7 +39,10 @@ async function sign_up_DB(email, password) {
     })
     await TS.save()
 
-    return `${email} Account Created Succesfully`
+    return {
+        message: `${email} Account Created Succesfully`,
+        error: false
+    }
   }
 
 module.exports = sign_up_DB

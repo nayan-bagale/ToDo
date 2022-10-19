@@ -35,23 +35,27 @@ let data = [{
 router.post('/login', async (req, res) => {
     const { email, password, remeber_me } = req.body
     const result = await login_DB(email, password)
-    if (result != 'logged in'){
+    if (result.error){
         console.log(result)
-        res.status(404)
+        res.status(200).send(result)
         return
     }
 
     let NewToken = await token(email)
     let data = await UserData(NewToken)
     
-    res.send(`${JSON.stringify(data)}`)
+    res.status(200).send(`${JSON.stringify(data)}`)
 })
 
 router.post('/sign-up', async (req, res) => {
-    const { email, password } = req.body
-    let match = await sign_up_DB(email, password)
-    console.log(match)
-    res.send(match)
+    let result = await sign_up_DB(req.body) // req.body { name, email, password }
+    console.log(result)
+    if (result.error){
+        res.status(200).send(result)
+        return
+    }
+
+    res.status(200).send(result)
 })
 
 
