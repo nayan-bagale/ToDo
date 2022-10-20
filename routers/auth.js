@@ -59,4 +59,36 @@ router.post('/sign-up', async (req, res) => {
 })
 
 
+//Complete it 
+function Validation(data){
+    const { email, password } = data
+
+    function ValidateEmail(inputText) {
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (inputText == '') {
+            return { message: 'Email is required', error: true }
+        }
+        else if (inputText.match(mailformat)) {
+            return { message: 'Valid Email Address', error: false }
+        }
+        else {
+            return { message: 'Invalid Email Address', error: true }
+        }
+    }
+
+    function ValidatePassword(inputText) {
+        if (inputText == '') {
+            return { message: 'Password is required', error: true }
+        } else if (inputText.length <= 8) {
+            return { message: 'Password length must be atleast 8 characters', error: true }
+        } else {
+            return { message: 'Valid Password', error: false }
+        }
+    }
+
+}
+
+
+
+
 module.exports = router;

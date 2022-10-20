@@ -384,7 +384,6 @@ function userdata(data) {
     if (name != undefined) {
         if (name != '') {
             $('#username').text(name)
-
         }
     }
 
@@ -392,6 +391,7 @@ function userdata(data) {
         $('#profile-photo-img').remove()
         $('.profile-photo').append(`<img src="${photo}" id="profile-photo-img" alt="profile-photo">`)
         $('#profile-icon').hide()
+        $('#small-p').remove()
         $('#small-photo').append(`<img src="${photo}" id="small-p" alt="profile">`)
 
     }
@@ -493,6 +493,9 @@ $('body').on('click', '#profile-edit', async function () {
         $('#username').attr('contentEditable', 'false')
         $('#edit_email').attr('contentEditable', 'false')
         $('.upload-image').css('display', 'none')
+        const response = await fetch(`token/${Token}`)
+        const data = await response.json()
+        userdata(data)
     }
 
 });

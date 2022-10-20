@@ -830,20 +830,12 @@ hr {
     height: 100px;
     scroll-snap-align: start;
     width: 200px;
-    border-radius: 10px;
-    background: #3cff00;
+    border-radius: 20px;
 }
 
 .activetheme {
     opacity: 0.2;
 }
-
-.background-option img {
-    z-index: 0;
-    height: 16vh;
-    border-radius: 10px;
-}
-
 
 .background-option span {
     font-size: 1.5rem;
@@ -926,8 +918,9 @@ hr {
         font-size: 1rem;
     }
 
-    .background-option img {
-        height: 12vh;
+    .background-option div {
+        height: 80px;
+        width: 140px;
 
     }
 
