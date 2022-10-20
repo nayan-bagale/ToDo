@@ -4,17 +4,18 @@ let bgcolor
 
 
 let Token = localStorage.getItem('Session_Token')
-if( Token !== null ){
+console.log(Token)
+if (Token !== null) {
     $(async function () {
         const response = await fetch(`/token/${Token}`)
         const data = await response.json()
-        if(response.status != 401){
+        if (response.status != 401) {
             Token = data.token
             userdata(data)
             todofetch()
             $('#menu-btn').css('display', 'block')
 
-        }else{
+        } else {
             localStorage.removeItem("Session_Token")
             window.location.replace("/")
         }
@@ -25,10 +26,10 @@ if( Token !== null ){
 
 $(window).on('load', function () {
     function loader_remove() {
-        $('.loader-container').css('animation','slider 1s linear')
-        $('#loading').on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(){
+        $('.loader-container').css('animation', 'slider 1s linear')
+        $('#loading').on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function () {
             $(this).remove()
-            $('body').css('overflow','auto')
+            $('body').css('overflow', 'auto')
         })
     }
     window.setTimeout(loader_remove, 2000)
@@ -40,7 +41,7 @@ $('body').on('click', '.fa-trash', function () {
     todo_list = $.grep(todo_list, function (element) {
         return element['task'] != tempvalue
     })
-    
+
 
     $(this).parent().addClass('fall')
     $(this).parent().one('transitionend', function () {
@@ -69,17 +70,17 @@ $('body').on('click', '#done', function () {
 })
 
 //theme
-$('body').on('click', '.background-option div', async function(){
+$('body').on('click', '.background-option div', async function () {
     let colorid = $(this).attr('id')
     let dict
     bgcolor.forEach((e) => {
-        if(e['id'] === colorid){
+        if (e['id'] === colorid) {
             $(':root').css('--background-color', e['colorcode'])
             dict = {
                 id: colorid,
                 colorcode: e['colorcode']
             }
-            
+
         }
     })
     $('.background-option').find('.activetheme').removeClass('activetheme')
@@ -96,7 +97,7 @@ $(async function () {
     const data = await response.json()
     bgcolor = data
 
-    data.forEach((e , i) => {
+    data.forEach((e, i) => {
         $('.background-option').append(`<div id="${e.id}" style="background: ${e.colorcode};"><span>${e.name}</span></div>`)
     })
 })
@@ -104,23 +105,37 @@ $(async function () {
 
 //Profile Section
 
-$('body').on('click', '#profile-btn', function(){
-    if($('#profile').css('display') == 'none'){
+$('body').on('click', '#profile-btn', function () {
+    let img = $('#small-p')
+    if ($('#profile').css('display') == 'none') {
         $('#profile').css('display', 'flex')
         $('.menu-btn').css('z-index', 1)
-    }else{
+        if (img.length > 0) {
+            img.css('display', 'none')
+            $('#profile-icon').show()
+        }
+        $('#profile-icon').text('close')
+
+    } else {
         $('#profile').css('display', 'none')
         $('.menu-btn').css('z-index', 4)
+        if (img.length > 0) {
+            $('#profile-icon').hide()
+            $('#profile-icon').text('')
+            img.css('display', 'block')
+        } else {
+            $('#profile-icon').text('account_circle')
+        }
     }
 });
 
-$('body').on('click', '#login', function(){
+$('body').on('click', '#login', function () {
     $('.login-block').show()
     $('#login').css({
         'background-color': 'transparent',
         'box-shadow': 'none'
     })
-    $('#sign-up').css({ 
+    $('#sign-up').css({
         'background-color': 'var(--section-skeleton)',
         'box-shadow': 'inset 4px -4px 10px -5px #333',
         'border-radius': '0px 10px 0px 10px'
@@ -185,7 +200,7 @@ $('#profile').mouseup(function (e) {
 })
 
 // Authenticate Section
-$('#login-button').click( async function(event){
+$('#login-button').click(async function (event) {
     event.preventDefault(); //Prevent form from submitting
     animation(true)
     var login = $('.login-block')
@@ -195,7 +210,7 @@ $('#login-button').click( async function(event){
         remeber_me: login.find('#remember-me').is(':checked')
     }
 
-    if(!ValidateEmail(logindata.email)) {
+    if (!ValidateEmail(logindata.email)) {
         animation(false)
         return
     }
@@ -213,12 +228,12 @@ $('#login-button').click( async function(event){
     );
 
     const data = await response.json()
-    if(data.error){
+    if (data.error) {
         animation(false)
         ErrorPopUp(data.message, 'login')
         return
     }
-    
+
     Token = data.token  //saving temp token
     userdata(data)
     todofetch(data.token)
@@ -234,7 +249,7 @@ $('#sign-up-button').click(async function (event) {
     event.preventDefault(); //Prevent form from submitting
     animation(true)
     var sign_up = $('.sign-up-block')
-    
+
     let obj = {
         name: sign_up.find('#sign-up-name').val(),
         email: sign_up.find('#sign-up-email').val(),
@@ -245,7 +260,7 @@ $('#sign-up-button').click(async function (event) {
         animation(false)
         return
     }
-    if(!ValidatePassword(obj.password)){
+    if (!ValidatePassword(obj.password)) {
         animation(false)
         return
     }
@@ -270,12 +285,12 @@ $('#sign-up-button').click(async function (event) {
     }
 
 
-   animation(false)
+    animation(false)
 });
 
 function ValidateEmail(inputText) {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if( inputText == ''){
+    if (inputText == '') {
         ErrorPopUp('Email is required', 'email')
         return false;
     }
@@ -289,13 +304,13 @@ function ValidateEmail(inputText) {
 }
 
 function ValidatePassword(inputText) {
-    if( inputText == ''){
-        ErrorPopUp('Password is required','password')
+    if (inputText == '') {
+        ErrorPopUp('Password is required', 'password')
         return false
-    }else if( inputText.length <= 8){
+    } else if (inputText.length <= 8) {
         ErrorPopUp('Password length must be atleast 8 characters', 'password')
         return false
-    }else{
+    } else {
         return true
     }
 }
@@ -311,12 +326,12 @@ async function ErrorPopUp(error, section) {
     await sleep(500)
     errorpopup.css('display', 'none')
     errorpopup.text('')
-    console.log(error, section)
+    // console.log(error, section)
 }
 
 // End Authenticate Section
 
-async function todofetch(token=Token) {
+async function todofetch(token = Token) {
     const response = await fetch(
         `/token/${token}/todo`,
         {
@@ -327,11 +342,11 @@ async function todofetch(token=Token) {
             }
         }
     );
-    
+
     const data = await response.json();
 
     // response_popup_section('Todo Fetched', 'succeed')
-    
+
     todo_list = data;
     if (todo_list.length != 0) {
         todo_list.forEach(element => {
@@ -353,10 +368,10 @@ async function todosync() {
         }
     );
     const data = await response.json();
-    
-    if(data.error){
+
+    if (data.error) {
         response_popup_section(data.message, 'failed')
-    }else{
+    } else {
         response_popup_section(data.message, 'succeed')
     }
 
@@ -364,14 +379,20 @@ async function todosync() {
 
 function userdata(data) {
 
-    const { name, email, photo, settings} = data
+    const { name, email, photo, settings } = data
     $('.auth-section').hide()
     if (name != undefined) {
-        $('#username').text(name)
+        if (name != '') {
+            $('#username').text(name)
+
+        }
     }
+
     if (photo != undefined) {
         $('#profile-photo-img').remove()
         $('.profile-photo').append(`<img src="${photo}" id="profile-photo-img" alt="profile-photo">`)
+        $('#profile-icon').hide()
+        $('#small-photo').append(`<img src="${photo}" id="small-p" alt="profile">`)
 
     }
 
@@ -379,7 +400,7 @@ function userdata(data) {
         $(':root').css('--background-color', settings['colorcode'])
         $('.background-option').find('.activetheme').removeClass('activetheme')
         let id = settings['id']
-        $('#'+id).addClass('activetheme')
+        $('#' + id).addClass('activetheme')
 
     }
 
@@ -389,16 +410,16 @@ function userdata(data) {
 
     $('.profile-section').css('display', 'flex')
 
-    
+
 }
 
-function animation(bool){
-    if(bool){
+function animation(bool) {
+    if (bool) {
         $('.lds-ellipsis').css('display', 'inline-flex');
         $('.login-signup').css('visibility', 'hidden');
         $('.sign-up-block').css('visibility', 'hidden');
         $('.login-block').css('visibility', 'hidden');
-    }else{
+    } else {
         $('.login-signup').css('visibility', 'visible');
         $('.sign-up-block').css('visibility', 'visible');
         $('.login-block').css('visibility', 'visible');
@@ -441,11 +462,11 @@ async function saveprofile() {
 
 }
 
-async function response_popup_section(error, status){
+async function response_popup_section(error, status) {
     let popup = $('.section-error')
-    if(status == 'failed'){
+    if (status == 'failed') {
         popup.css('background-color', 'var(--color-light-red)')
-    }else{
+    } else {
         popup.css('background-color', 'var(--color-light-green)')
     }
     popup.css('animation', 'none')
@@ -457,7 +478,7 @@ async function response_popup_section(error, status){
     await sleep(500)
     popup.css('display', 'none')
     popup.text('')
-    console.log(error)
+    // console.log(error)
 }
 
 // 
@@ -477,13 +498,17 @@ $('body').on('click', '#profile-edit', async function () {
 });
 
 $('body').on('click', '#sign-out', function () {
-    $('.auth-section').css('display', 'block')
+    // $('.auth-section').css('display', 'block')
     $('.profile-section').hide()
     $('#profile-photo-img').remove()
     $('#username').text('name')
     $('#edit_email').text('email')
     localStorage.removeItem("Session_Token")
     window.location.replace("/")
+
+    let signout_animation = () => {
+        // do some animation
+    }
 })
 
 $("#btn-upload-image").on('click', function () {

@@ -34,7 +34,9 @@ router.get('/:token', validate, async (req, res) => {
 router.post('/:token', validate, async (req, res) => {
     const { name, email, photo } = req.body
     let $ = await TokenSchema.find({ token: req.params.token })
+    // console.log($, req.body)
     let _ = await AuthSchema.findOneAndUpdate({ id: $[0].user_id }, { name: name, email: email })
+    // console.log(_)
     res.status(200).send({ message: 'Data Synced', error: false })
 })
 
