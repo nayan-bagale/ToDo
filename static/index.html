@@ -6,57 +6,140 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google" content="notranslate" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="style.css">
     <title>ToDo List</title>
 </head>
 
 <body>
+
+    <div id="loading" class="loader-container">
+        <div class="loader-text">Loading ToDo</div>
+    </div>
     <header>
-        <!-- <div class="profile-btn" id="profile-btn">
-            <button class="material-symbols-outlined">
-                person_filled
-                <img src="#" alt="profile">
+        <div class="profile-btn" id="profile-btn">
+            <button id="small-photo">
+                <span class="material-symbols-outlined" id="profile-icon">
+                    account_circle
+                </span>
+                <!-- <img src="#" alt="profile"> -->
             </button>
-        </div> -->
+        </div>
 
         <h1>ToDo List</h1>
         <div class="menu-btn" id="menu-btn">
-            <button class="material-symbols-outlined">menu</button>
+            <button class="material-symbols-outlined" onclick="todosync()">cloud_sync</button>
         </div>
     </header>
 
-    <!-- <div class="profile-container" id="profile">
-        <div class="profile-block">
-            <form>
-                <label for="email">email</label>
-                <input type="email" name="email" id="email">
-                <label for="password">password</label>
-                <input type="password" name="password" id="password">
-                <button type="submit">login</button>
-            </form>
-        </div>
-    </div> -->
-    
-    <div class="setting-container" id="setting">
-        <div class="setting-block">
-                <h2>Color Theme</h2><br>
-                <div class="background-option">
-                    <div id="color1" class="activetheme"><img src="./img/color1.png" alt="Cool Sky"><span>Cool Sky</span>
+    <div class="profile-container" id="profile">
+        <div class="auth-section">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="login-signup">
+                <h2 id="login">login</h2>
+                <h2 id="sign-up">Sign Up</h2>
+            </div>
+            <div class="login-block">
+                <form>
+                    <div class="login-input">
+                        <span class="material-symbols-outlined">
+                            alternate_email
+                        </span>
+                        <input type="email" name="email" id="login-email" placeholder="Email">
                     </div>
-                    <div id="color2"><img src="./img/color2.png" alt="Macaroon"><span>Macaroon</span></div>
-                    <div id="color3"><img src="./img/color3.png" alt="Orchid"><span>Orchid</span></div>
-                    <div id="color4"><img src="./img/color4.png" alt="Lead"><span>Lead</span></div>
-                    <div id="color5"><img src="./img/color5.png" alt="Scarlet"><span>Scarlet</span></div>
-                    <div id="color6"><img src="./img/color6.png" alt="Coal"><span>Coal</span></div>
+                    <div class="login-input">
+                        <span class="material-symbols-outlined">
+                            lock
+                        </span>
+                        <input type="password" name="password" id="login-password" placeholder="Password">
+                    </div>
+                    <div class="login-remeber-me">
+                        <input type="checkbox" name="remember-me" id="remember-me">
+                        <label for="remember-me">Remember Me ?</label>
+                    </div>
+                    <button type="submit" id="login-button">login</button>
+                    <!-- <label for="forget-pass" class="forget-pass">Forget Password</label> -->
+                </form>
+
+            </div>
+            <div class="sign-up-block" style="display: none">
+                <form>
+                    <div class="sign-up-input">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                        <input type="name" name="name" id="sign-up-name" placeholder="Name">
+                    </div>
+                    <div class="sign-up-input">
+                        <span class="material-symbols-outlined">
+                            alternate_email
+                        </span>
+                        <input type="email" name="email" id="sign-up-email" placeholder="Email">
+                    </div>
+                    <div class="sign-up-input">
+                        <span class="material-symbols-outlined">
+                            lock
+                        </span>
+                        <input type="password" name="password" id="sign-up-password" placeholder="Password">
+                    </div>
+                    <button type="submit" id="sign-up-button">Sign up</button>
+                </form>
+            </div>
+            <span id="auth-section-error" class="auth-section-error">Error</span>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-photo">
+                    <div class="upload-image">
+                        <span id="btn-upload-image" class="material-symbols-outlined">
+                            file_upload
+                        </span>
+                    </div>
+                    <!-- <img src="" id="profile-photo-img" alt="profile-photo"> -->
+                    <input type="file" id="image" name="image" class="image">
                 </div>
+                <h2 contentEditable="false" id="username">Name</h2>
+                <div class="edit" id="profile-edit"><span class="material-symbols-sharp">edit</span></div>
+            </div>
+            <hr>
+            <div class="profile-info">
+                <label for="email" contentEditable="false" id="edit_email"></label>
+                <!-- <label for="pass">Change Password.</label> -->
+                <button onclick="saveprofile()">Save</button>
+            </div>
+
+            <button onclick="todofetch()" class="sign-out-btn reload-btn material-symbols-outlined"> sync</button>
+            <hr>
+            <div class="theme-section">
+                <h2>Color Theme</h2>
+                <div class="background-option">
+                    <!-- <div id="color1" class="activetheme"><span>Cool
+                            Sky</span>
+                    </div>
+                    <div id="color2" style="background: ;"><span>Macaroon</span></div>
+                    <div id="color3"><span>Orchid</span></div>
+                    <div id="color4"><span>Lead</span></div>
+                    <div id="color5"><span>Scarlet</span></div>
+                    <div id="color6"><span>Coal</span></div> -->
+                </div>
+            </div>
+            <hr>
+            <button id="sign-out" class="sign-out-btn">Sign Out</button>
+
         </div>
     </div>
-    <form autocomplete="off">
-        <input type="text" name="todo-input" class="todo-input">
+
+    <form autocomplete="off" class="form-todo-input">
+        <input type="text" name="todo-input" class="todo-input" placeholder="ToDo">
         <button class="todo-button" type="submit">
             <span class="material-symbols-outlined">
                 add_box
@@ -64,7 +147,7 @@
         </button>
     </form>
     <div class="todo-container">
-        <ul class="todo-list">
+        <ul class="todo-list" id="sortable">
             <!-- <div class="todo"  id="not-completed">
                 <li>hiii</li>
                 <button class="fa-done"><span class="material-symbols-outlined">
@@ -77,10 +160,17 @@
         </ul>
     </div>
     <footer>
-        <h2>Developed by &#60; Nayan /&#62;</h2>
+        <h2>Developed by <a href="https://github.com/nayan-bagale" target="_blank">&#60; Nayan /&#62;</a></h2>
     </footer>
+    <span id="section-error" class="section-error"></span>
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"
+        integrity="sha512-YYiD5ZhmJ0GCdJvx6Xe6HzHqHvMpJEPomXwPbsgcpMFPW+mQEeVBU6l9n+2Y+naq+CLbujk91vHyN18q6/RSYw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="script.js"></script>
 </body>
 
