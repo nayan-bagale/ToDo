@@ -3,13 +3,12 @@ let todo_list = []
 let bgcolor
 
 
-
 let Token = localStorage.getItem('Session_Token')
 if( Token !== null ){
     $(async function () {
         const response = await fetch(`/token/${Token}`)
         const data = await response.json()
-        if(response.status != 201){
+        if(response.status != 401){
             Token = data.token
             userdata(data)
             todofetch()
@@ -17,6 +16,7 @@ if( Token !== null ){
 
         }else{
             localStorage.removeItem("Session_Token")
+            window.location.replace("/")
         }
     });
 
@@ -79,7 +79,6 @@ $('body').on('click', '.background-option div', async function(){
                 id: colorid,
                 colorcode: e['colorcode']
             }
-            // localStorage.setItem("theme", JSON.stringify(dict))
             
         }
     })
@@ -90,16 +89,17 @@ $('body').on('click', '.background-option div', async function(){
         if (data == 'Not Found') return 0
     }, 'html')
 
-    
-    // console.log(dict)
-    // console.log($(this).find('img'))
 })
 
 $(async function () {
     const response = await fetch('/theme')
     const data = await response.json()
     bgcolor = data
-});
+
+    data.forEach((e , i) => {
+        $('.background-option').append(`<div id="${e.id}" style="background: ${e.colorcode};"><span>${e.name}</span></div>`)
+    })
+})
 
 
 //Profile Section
@@ -327,10 +327,10 @@ async function todofetch(token=Token) {
             }
         }
     );
-    if(!response.ok){
-
-    }
+    
     const data = await response.json();
+
+    // response_popup_section('Todo Fetched', 'succeed')
     
     todo_list = data;
     if (todo_list.length != 0) {
@@ -352,11 +352,18 @@ async function todosync() {
             body: JSON.stringify(todo_list)
         }
     );
-    // const data = await response.json();
-    console.log(await response)
+    const data = await response.json();
+    
+    if(data.error){
+        response_popup_section(data.message, 'failed')
+    }else{
+        response_popup_section(data.message, 'succeed')
+    }
+
 }
 
 function userdata(data) {
+
     const { name, email, photo, settings} = data
     $('.auth-section').hide()
     if (name != undefined) {
@@ -416,8 +423,13 @@ async function saveprofile() {
             body: JSON.stringify(dict)
         }
     );
-    const data = await response
-    if(response.ok) console.log(response)
+    const data = await response.json()
+    console.log(data)
+    if (data.error) {
+        response_popup_section(data.message, 'failed')
+    } else {
+        response_popup_section(data.message, 'succeed')
+    }
 
 
     $('.profile-info').css('display', 'none')
@@ -427,6 +439,25 @@ async function saveprofile() {
 
     // if (profile_img != undefined) await profileupload(profile_img.files[0])
 
+}
+
+async function response_popup_section(error, status){
+    let popup = $('.section-error')
+    if(status == 'failed'){
+        popup.css('background-color', 'var(--color-light-red)')
+    }else{
+        popup.css('background-color', 'var(--color-light-green)')
+    }
+    popup.css('animation', 'none')
+    popup.text(error)
+    popup.css('display', 'block')
+    popup.css('animation', 'section-errorup 0.5s linear')
+    await sleep(4000)
+    popup.css('animation', 'section-errordown 0.5s linear')
+    await sleep(500)
+    popup.css('display', 'none')
+    popup.text('')
+    console.log(error)
 }
 
 // 

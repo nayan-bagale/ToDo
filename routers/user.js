@@ -35,7 +35,7 @@ router.post('/:token', validate, async (req, res) => {
     const { name, email, photo } = req.body
     let $ = await TokenSchema.find({ token: req.params.token })
     let _ = await AuthSchema.findOneAndUpdate({ id: $[0].user_id }, { name: name, email: email })
-    res.status(200).send('User Data Updated')
+    res.status(200).send({ message: 'Data Synced', error: false })
 })
 
 
@@ -56,7 +56,7 @@ router.post('/:token/todo', validate, async (req, res) => {
     console.log(req.body)
     let $ = await TokenSchema.find({ token: req.params.token })
     let _ = await DataSchema.findOneAndUpdate({ user_id: $[0].user_id }, {todo_data: req.body})
-    res.status(200).send('Todo Synced')
+    res.status(200).send({ message: 'Todo Synced', error: false })
 })
 
 
