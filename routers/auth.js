@@ -11,6 +11,7 @@ const login_DB = require('../model/login.js')
 const token = require('../utility/token.js')
 const UserData = require('../utility/userdata.js')
 
+mongoose.set("strictQuery", false);
 mongoose
     .connect(MONGO_URI,
         { useNewUrlParser: true, useUnifiedTopology: true })
