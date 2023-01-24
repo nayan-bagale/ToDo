@@ -11,6 +11,9 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>ToDo List</title>
 </head>
 
@@ -49,13 +52,13 @@
             </div>
             <div class="login-block">
                 <form>
-                    <div class="login-input">
+                    <div class="login-input" id="login-input-email">
                         <span class="material-symbols-outlined">
                             alternate_email
                         </span>
                         <input type="email" name="email" id="login-email" placeholder="Email">
                     </div>
-                    <div class="login-input">
+                    <div class="login-input" id="login-input-password">
                         <span class="material-symbols-outlined">
                             lock
                         </span>

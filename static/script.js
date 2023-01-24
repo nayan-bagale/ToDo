@@ -212,6 +212,7 @@ $('#login-button').click(async function (event) {
 
     if (!ValidateEmail(logindata.email)) {
         animation(false)
+        $( "#login-input-email" ).effect( "shake" );
         return
     }
 
@@ -230,6 +231,7 @@ $('#login-button').click(async function (event) {
     const data = await response.json()
     if (data.error) {
         animation(false)
+        data.message == "Password is wrong" ? $( "#login-input-password" ).effect( "shake" ) : $( "#login-input-email" ).effect( "shake" );
         ErrorPopUp(data.message, 'login')
         return
     }
